@@ -1,0 +1,319 @@
+{
+  "parefeu": {
+    "shortA": {
+      "title": "Pare-feu WatchGuard",
+      "intro": "Le pare-feu est la porte principale de votre système d’information. Il protège des attaques, organise le réseau et sécurise les accès.",
+      "bullets": [
+        "Modèles T115 / T125 selon la taille de l’entreprise",
+        "Basic Security ou Total Security",
+        "Protection réseau + VPN sécurisé",
+        "Stabilisation de la connexion Internet"
+      ]
+    },
+    "shortB": {
+      "title": "Pare-feu WatchGuard (version technique)",
+      "intro": "Appliance UTM Firebox sous Fireware OS, assurant la sécurité périmétrique et la segmentation réseau.",
+      "bullets": [
+        "Stateful firewall, NAT, VLAN, DHCP",
+        "VPN IPsec site-à-site + VPN SSL",
+        "Inspection TLS (selon licence)",
+        "Débit : T115 ≈ 300–400 Mbps UTM, T125 ≈ 600–700 Mbps UTM"
+      ]
+    },
+    "longA": {
+      "title": "Pare-feu WatchGuard – version étendue",
+      "intro": "Le WatchGuard est le verrou principal : protection, filtrage, organisation du réseau, VPN, supervision et stabilité.",
+      "bullets": [
+        "Séparation des réseaux : invités, prod, compta…",
+        "Blocage attaques + analyse comportementale",
+        "Priorisation Teams / VoIP",
+        "Accès distant sécurisé (VPN)",
+        "Journalisation + alertes automatiques"
+      ],
+      "images": []
+    },
+    "longB": {
+      "title": "Pare-feu WatchGuard – technique étendue",
+      "intro": "Architecture avancée Firebox : inspection TLS, SD-WAN, HA, routage, corrélation WatchGuard Cloud.",
+      "bullets": [
+        "Modules Basic : GAV, IPS, RED, WebBlocker",
+        "Modules Total : APT Blocker, IntelligentAV, DNSWatch, Access Portal",
+        "SD-WAN + Multi-WAN + bascule automatique",
+        "Support HA (selon modèles)"
+      ],
+      "images": []
+    },
+    "prices": {
+      "note": "Tarifs indicatifs – Novembre 2025",
+      "hardware": "Selon modèle (T115 / T125).",
+      "licences": "Basic ou Total Security – tarifs variables selon durée.",
+      "options": [
+        "Administration complète du firewall",
+        "Surveillance WatchGuard Cloud",
+        "Supervision + alertes Atera"
+      ]
+    }
+  },
+
+  "edr": {
+    "shortA": {
+      "title": "EDR / XDR / MDR",
+      "intro": "Solutions modernes de protection contre les menaces avancées.",
+      "bullets": [
+        "EDR : analyse comportementale",
+        "XDR : corrélation multi-sources",
+        "MDR : supervision humaine 24/7 (optionnel)",
+        "Anti-ransomware avancé"
+      ]
+    },
+    "shortB": {
+      "title": "EDR / XDR / MDR – technique",
+      "intro": "Protection NextGen avec télémétrie, heuristiques et analyse comportementale.",
+      "bullets": [
+        "EDR : logs kernel + comportement",
+        "XDR : corrélation endpoint + réseau",
+        "MDR : SOC externe optionnel",
+        "Bloque attaques fileless"
+      ]
+    },
+    "longA": {
+      "title": "EDR / XDR / MDR – étendu",
+      "intro": "Protection qui observe, apprend et neutralise les menaces même inconnues.",
+      "bullets": [
+        "Algorithmes comportementaux",
+        "Rollback automatique fichiers modifiés",
+        "Détection fichiers, scripts, mémoire",
+        "Bloque ransomware avant chiffrement"
+      ],
+      "images": []
+    },
+    "longB": {
+      "title": "EDR / XDR / MDR – technique étendue",
+      "intro": "Technologie incluant télémétrie avancée, sandbox, machine learning, injections bloquées.",
+      "bullets": [
+        "Kernel-level monitoring",
+        "Détection process injection / Mimikatz",
+        "Automatisation réponses",
+        "Scénarios XDR multi-sources"
+      ],
+      "images": []
+    },
+    "prices": {
+      "note": "Tarifs Novembre 2025",
+      "licence": "Licence EDR par poste / mois.",
+      "options": ["XDR", "MDR (supervision SOC)", "Administration Absolute Micro"]
+    }
+  },
+
+  "mfa": {
+    "shortA": {
+      "title": "MFA & Anti-phishing",
+      "intro": "Sécurise les accès et bloque les attaques liées à l’identité.",
+      "bullets": [
+        "Double authentification",
+        "Détection phishing",
+        "Protection contre ransomwares"
+      ]
+    },
+    "shortB": {
+      "title": "MFA – version technique",
+      "intro": "Protection identités via Microsoft Entra ID + règles d’accès conditionnel.",
+      "bullets": ["MFA obligatoire", "Risk-based access", "Policies conditionnelles"]
+    },
+    "longA": {
+      "title": "MFA – étendue",
+      "intro": "Rend l’usurpation d'identité quasi impossible.",
+      "bullets": ["Applications protégées", "Codes temporaires", "Approvisionnement sécurisé"],
+      "images": []
+    },
+    "longB": {
+      "title": "MFA – technique étendue",
+      "intro": "Stack Entra ID complet : MFA, CA, Identity Protection.",
+      "bullets": ["Scanner risques", "Sign-in logs", "Harmonisation des accès"],
+      "images": []
+    },
+    "prices": {
+      "note": "Tarifs Microsoft 2025",
+      "licence": "Inclus dans M365 Business Premium"
+    }
+  },
+
+  "antispam": {
+    "shortA": {
+      "title": "Antispam Vade 365",
+      "intro": "Protection spécialisée Microsoft 365.",
+      "bullets": [
+        "Bloque spam, greymail, virus",
+        "Analyse pièces jointes",
+        "Protection liens malveillants"
+      ]
+    },
+    "shortB": {
+      "title": "Vade 365 – technique",
+      "intro": "Analyse multicouche appliquée aux flux Exchange Online.",
+      "bullets": ["Machine learning", "Time-of-click protection", "Sandbox Vade"]
+    },
+    "longA": {
+      "title": "Vade 365 – étendu",
+      "intro": "Solution complète anti-phishing pour PME.",
+      "bullets": ["Détection spear-phishing", "Protection BEC", "IA adaptative"],
+      "images": []
+    },
+    "longB": {
+      "title": "Vade 365 – technique étendue",
+      "intro": "Architecture multicouche complète.",
+      "bullets": ["Content filter", "Behavior filter", "URL rewriting"],
+      "images": []
+    },
+    "prices": {
+      "note": "Tarifs 2025",
+      "annuel": "38,50 € HT / an / adresse",
+      "3ans": "99 € HT / 3 ans / adresse"
+    }
+  },
+
+  "audits": {
+    "shortA": {
+      "title": "Audit de sécurité",
+      "intro": "Comprendre l’état réel de votre informatique.",
+      "bullets": ["Analyse globale", "Plan d’action", "Priorisation"]
+    },
+    "shortB": {
+      "title": "Audit – technique",
+      "intro": "Audit complet : réseau, sécurité, comptes, sauvegardes.",
+      "bullets": ["Contrôles AD", "Pare-feu", "Postes", "RGPD"]
+    },
+    "longA": {
+      "title": "Audit – étendu",
+      "intro": "Vision claire + plan priorisé.",
+      "bullets": ["Complet", "Restitution", "Recommandations"],
+      "images": []
+    },
+    "longB": {
+      "title": "Audit – technique étendu",
+      "intro": "Analyse profonde de tous les composants critiques.",
+      "bullets": ["Scanning", "Test règles firewall", "Analyse comptes"],
+      "images": []
+    },
+    "prices": {
+      "note": "Novembre 2025",
+      "tarif": "Journée d’audit : indicatif selon périmètre"
+    }
+  },
+
+  "pentests": {
+    "shortA": {
+      "title": "Pentests",
+      "intro": "Simulation d’attaques encadrées.",
+      "bullets": ["Tests externes", "Rapport", "Correction"]
+    },
+    "shortB": {
+      "title": "Pentest – technique",
+      "intro": "Tests d’intrusion contrôlés.",
+      "bullets": ["Reconnaissance", "Exploitation", "Rapports détaillés"]
+    },
+    "longA": {
+      "title": "Pentest – étendu",
+      "intro": "Détection failles réelles.",
+      "bullets": ["Méthode OSSTMM", "Injection", "Web / infra"],
+      "images": []
+    },
+    "longB": {
+      "title": "Pentest – technique étendu",
+      "intro": "Analyse offensive professionnelle.",
+      "bullets": ["OWASP", "Scan réseau", "Tests manuels"],
+      "images": []
+    },
+    "prices": {
+      "note": "Tarifs 2025",
+      "indication": "Basé sur périmètre et durée (à partir d’1 jour)"
+    }
+  },
+
+  "monitoring": {
+    "shortA": {
+      "title": "Monitoring",
+      "intro": "Supervision proactive de votre infrastructure.",
+      "bullets": ["Atera", "Acronis", "Trend", "Centreon"]
+    },
+    "shortB": {
+      "title": "Monitoring – technique",
+      "intro": "Collecte, télémétrie, alertes, automation.",
+      "bullets": ["SNMP", "API", "Automatisation Atera"]
+    },
+    "longA": {
+      "title": "Monitoring – étendu",
+      "intro": "Visibilité et alertes en continu.",
+      "bullets": ["Alerting", "Maintenance", "Patching"],
+      "images": []
+    },
+    "longB": {
+      "title": "Monitoring – technique étendu",
+      "intro": "Architecture complète de supervision.",
+      "bullets": ["PRTG", "Centreon", "Dashboards", "Haute disponibilité"],
+      "images": []
+    },
+    "prices": {
+      "note": "2025",
+      "options": ["Monitoring standard", "Monitoring avancé", "Administration complète"]
+    }
+  },
+
+  "sensibilisation": {
+    "shortA": {
+      "title": "Sensibilisation",
+      "intro": "Former les utilisateurs aux risques.",
+      "bullets": ["Ateliers", "Tests phishing", "Livrables simples"]
+    },
+    "shortB": {
+      "title": "Sensibilisation – technique",
+      "intro": "Sessions ciblées pour réduire les risques humains.",
+      "bullets": ["Phishing simulation", "Stats", "Correctifs utilisateurs"]
+    },
+    "longA": {
+      "title": "Sensibilisation – étendue",
+      "intro": "Programme complet d’éducation cybersécurité.",
+      "bullets": ["Phishing", "Tests", "Ateliers"],
+      "images": []
+    },
+    "longB": {
+      "title": "Sensibilisation – technique étendue",
+      "intro": "Analyse comportementale + scoring utilisateurs.",
+      "bullets": ["Courbes de risque", "Rapports RH"],
+      "images": []
+    },
+    "prices": {
+      "note": "2025",
+      "options": ["Ateliers sur site", "Phishing simulation", "Programme annuel"]
+    }
+  },
+
+  "attaques": {
+    "shortA": {
+      "title": "Cyberattaques : pourquoi, comment, qui",
+      "intro": "Comprendre les motivations et les techniques.",
+      "bullets": ["Motivations financières", "Failles humaines", "Outils modernes"]
+    },
+    "shortB": {
+      "title": "Cyberattaques – technique",
+      "intro": "Analyse des méthodes d’attaque modernes.",
+      "bullets": ["Reconnaissance", "Exploitation", "Post-exploitation"]
+    },
+    "longA": {
+      "title": "Cyberattaques – étendue",
+      "intro": "Panorama des menaces actuelles.",
+      "bullets": ["Ransomware", "Keyloggers", "Botnets"],
+      "images": []
+    },
+    "longB": {
+      "title": "Cyberattaques – technique étendue",
+      "intro": "Méthodes avancées utilisées par les attaquants.",
+      "bullets": ["LPE", "C2", "Persistence"],
+      "images": []
+    },
+    "prices": {
+      "note": "2025",
+      "option": "Session de sensibilisation + atelier"
+    }
+  }
+}

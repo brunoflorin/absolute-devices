@@ -1,0 +1,200 @@
+{
+  "categories": [
+    {
+      "id": "cat_hardware",
+      "nom": "Matériel",
+      "description": "Problèmes liés au matériel informatique (alimentation, composants, périphériques).",
+      "symptomes": [
+        {
+          "id": "boot_pc",
+          "titre": "L’ordinateur ne démarre pas",
+          "questions": [
+            {
+              "id": "q1",
+              "texte": "Quand tu appuies sur le bouton d’alimentation, entends-tu un bruit ou vois-tu une LED s’allumer ?",
+              "options": [
+                { "reponse": "Oui", "next": "boot_signal" },
+                { "reponse": "Non", "next": "boot_no_power" }
+              ]
+            }
+          ],
+          "causes": [
+            {
+              "id": "boot_no_power",
+              "intitule": "Aucune alimentation électrique",
+              "probabilite": 0.6,
+              "solution": "Vérifie que le câble secteur est bien branché, que la multiprise fonctionne et que le bouton arrière du bloc d’alimentation est sur I (ON)."
+            },
+            {
+              "id": "boot_signal",
+              "intitule": "Alimentation OK mais aucun affichage",
+              "probabilite": 0.4,
+              "solution": "Teste avec un autre écran ou un autre câble vidéo. Si rien ne s’affiche, la carte mère ou la RAM peut être en cause."
+            }
+          ]
+        },
+        {
+          "id": "usb_device",
+          "titre": "Un périphérique USB n’est pas reconnu",
+          "questions": [
+            {
+              "id": "q2",
+              "texte": "Le périphérique fonctionne-t-il sur un autre ordinateur ?",
+              "options": [
+                { "reponse": "Oui", "next": "usb_driver" },
+                { "reponse": "Non", "next": "usb_device_fault" }
+              ]
+            }
+          ],
+          "causes": [
+            {
+              "id": "usb_driver",
+              "intitule": "Problème de pilote",
+              "probabilite": 0.7,
+              "solution": "Ouvre le gestionnaire de périphériques et réinstalle le pilote du périphérique USB concerné."
+            },
+            {
+              "id": "usb_device_fault",
+              "intitule": "Périphérique défectueux",
+              "probabilite": 0.3,
+              "solution": "Essaye sur un autre port USB ou un autre câble. Si le problème persiste, le périphérique est probablement endommagé."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_software",
+      "nom": "Logiciel",
+      "description": "Problèmes liés aux programmes ou au système d’exploitation.",
+      "symptomes": [
+        {
+          "id": "app_crash",
+          "titre": "Un logiciel se ferme tout seul",
+          "questions": [
+            {
+              "id": "q3",
+              "texte": "Le logiciel se ferme-t-il immédiatement au lancement ou après un certain temps ?",
+              "options": [
+                { "reponse": "Immédiatement", "next": "crash_start" },
+                { "reponse": "Après un moment", "next": "crash_memory" }
+              ]
+            }
+          ],
+          "causes": [
+            {
+              "id": "crash_start",
+              "intitule": "Fichier corrompu ou conflit système",
+              "probabilite": 0.7,
+              "solution": "Réinstalle le logiciel après avoir redémarré l’ordinateur. Si le problème persiste, exécute une vérification système avec 'sfc /scannow'."
+            },
+            {
+              "id": "crash_memory",
+              "intitule": "Surcharge mémoire",
+              "probabilite": 0.3,
+              "solution": "Ferme les programmes inutiles et relance le logiciel. Si la mémoire reste saturée, redémarre l’ordinateur."
+            }
+          ]
+        },
+        {
+          "id": "update_error",
+          "titre": "Erreur lors d’une mise à jour Windows",
+          "questions": [
+            {
+              "id": "q4",
+              "texte": "Le message d’erreur mentionne-t-il un code particulier ?",
+              "options": [
+                { "reponse": "Oui", "next": "update_code" },
+                { "reponse": "Non", "next": "update_general" }
+              ]
+            }
+          ],
+          "causes": [
+            {
+              "id": "update_code",
+              "intitule": "Problème de fichiers système",
+              "probabilite": 0.6,
+              "solution": "Ouvre l’invite de commandes en administrateur et exécute : DISM /Online /Cleanup-Image /RestoreHealth."
+            },
+            {
+              "id": "update_general",
+              "intitule": "Service de mise à jour bloqué",
+              "probabilite": 0.4,
+              "solution": "Redémarre le service Windows Update ou exécute l’utilitaire de résolution de problèmes Windows."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_network",
+      "nom": "Internet / Réseau",
+      "description": "Problèmes liés à la connexion réseau ou à la vitesse d’accès.",
+      "symptomes": [
+        {
+          "id": "slow_net",
+          "titre": "Connexion Internet lente",
+          "questions": [
+            {
+              "id": "q5",
+              "texte": "As-tu testé la connexion sur un autre appareil (smartphone, tablette, etc.) ?",
+              "options": [
+                { "reponse": "Oui, c’est aussi lent", "next": "slow_router" },
+                { "reponse": "Non, seulement sur ce PC", "next": "slow_pc" }
+              ]
+            }
+          ],
+          "causes": [
+            {
+              "id": "slow_router",
+              "intitule": "Problème de routeur ou de ligne Internet",
+              "probabilite": 0.6,
+              "solution": "Redémarre ta box Internet et vérifie si la vitesse revient. Si non, contacte ton fournisseur."
+            },
+            {
+              "id": "slow_pc",
+              "intitule": "PC saturé ou malware",
+              "probabilite": 0.4,
+              "solution": "Vérifie les processus dans le gestionnaire de tâches et fais une analyse antivirus."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_security",
+      "nom": "Sécurité",
+      "description": "Alertes, virus, et arnaques de faux supports.",
+      "symptomes": [
+        {
+          "id": "fake_virus",
+          "titre": "Message de virus ou alerte suspecte",
+          "questions": [
+            {
+              "id": "q6",
+              "texte": "Le message te demande-t-il d’appeler un numéro ou de payer un logiciel ?",
+              "options": [
+                { "reponse": "Oui", "next": "fake_support" },
+                { "reponse": "Non", "next": "real_alert" }
+              ]
+            }
+          ],
+          "causes": [
+            {
+              "id": "fake_support",
+              "intitule": "Arnaque de faux support technique",
+              "probabilite": 0.9,
+              "solution": "Ferme la page avec Ctrl+Alt+Suppr → Gestionnaire des tâches. Ne compose jamais le numéro affiché."
+            },
+            {
+              "id": "real_alert",
+              "intitule": "Vrai virus détecté",
+              "probabilite": 0.1,
+              "solution": "Exécute un scan complet avec Windows Defender ou ton antivirus habituel."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
