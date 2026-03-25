@@ -8,7 +8,7 @@ import MFAVIsual from "./MFAVIsual";
 import AntispamVisual from "./AntispamVisual";
 import SensibilisationVisual from "./SensibilisationVisual";
 import AuditVisual from "./AuditVisual";
-import CyberattaquesVisual from "./CyberattaquesVisual";
+import CyberattaquesVisual from "./CyberAttaquesVisual";
 import GenericVisual from "./GenericVisual";
 
 /* ========================= */
@@ -22,7 +22,7 @@ const VISUAL_COMPONENTS = {
   cyber_antispam: AntispamVisual,
   cyber_sensibilisation: SensibilisationVisual,
   cyber_audits: AuditVisual,
-  cyber_attaques: CyberattaquesVisual,
+  cyber_attaques: CyberAttaquesVisual,
 
   // BACKUP / CONTINUITÉ
   backup_acronis: GenericVisual,
