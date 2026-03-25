@@ -8,7 +8,7 @@ import MFAVIsual from "./MFAVIsual";
 import AntispamVisual from "./AntispamVisual";
 import SensibilisationVisual from "./SensibilisationVisual";
 import AuditVisual from "./AuditVisual";
-import CyberattaquesVisual from "./CyberAttaquesVisual";
+import CyberAttaquesVisual from "./CyberAttaquesVisual";
 import GenericVisual from "./GenericVisual";
 
 /* ========================= */
@@ -70,9 +70,7 @@ export default function TopicContent({ content, option, topicId }) {
       )}
 
       <div className="w-full p-6 bg-white rounded-xl shadow-md mt-4">
-        {label && (
-          <h2 className="text-2xl font-semibold mb-4">{label}</h2>
-        )}
+        {label && <h2 className="text-2xl font-semibold mb-4">{label}</h2>}
 
         {option === "4" && (
           <div className="my-8">
@@ -146,7 +144,7 @@ export default function TopicContent({ content, option, topicId }) {
                     className="w-14 text-center border rounded"
                     value={item.qty || 0}
                     onChange={(e) => {
-                      item.qty = Math.max(0, parseInt(e.target.value) || 0);
+                      item.qty = Math.max(0, parseInt(e.target.value, 10) || 0);
                       setRefresh(Math.random());
                     }}
                   />
