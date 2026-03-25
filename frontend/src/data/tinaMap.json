@@ -1,0 +1,25 @@
+{
+  "Matériels": {
+    "Ordinateurs": ["Démarrage", "Alimentation", "Écran", "Carte mère", "Mémoire", "Stockage", "Surchauffe", "Réseau"],
+    "Périphériques": ["Imprimante", "Scanner", "Clavier", "Souris", "Webcam", "Écran externe"],
+    "Téléphones": ["Android", "iPhone", "Windows Mobile"],
+    "Autres": ["Tablettes", "NAS", "Routeur", "Caméra de sécurité"]
+  },
+  "Logiciels": {
+    "Systèmes": ["Windows", "macOS", "Linux"],
+    "Bureautique": ["Word", "Excel", "PowerPoint", "Outlook"],
+    "Navigateurs": ["Chrome", "Firefox", "Edge", "Brave", "Safari"],
+    "Professionnels": ["EBP", "Ciel", "Sage"],
+    "Autres": ["Adobe", "Antivirus", "Utilitaires"]
+  },
+  "Internet": {
+    "Box Internet": ["Orange", "SFR", "Free", "Bouygues"],
+    "Réseau": ["WiFi", "Ethernet", "VPN", "DNS", "IP Fixe"],
+    "Messagerie": ["Outlook", "Thunderbird", "Webmail"]
+  },
+  "Astuces": {
+    "Matériel": ["CrystalDiskInfo", "Memtest", "Gestionnaire de périphériques", "CMD", "BIOS/UEFI"],
+    "Logiciel": ["Désinstaller un programme", "Mode sans échec", "Mise à jour Windows", "Nettoyage système"],
+    "Tutos": ["Sauvegarde des données", "Clonage disque", "Réinstallation Windows", "Test réseau local"]
+  }
+}
