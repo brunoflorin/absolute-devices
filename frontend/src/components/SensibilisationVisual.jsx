@@ -1,24 +1,42 @@
-// frontend/src/components/SensibilisationVisual.jsx
-
 import React, { useState } from "react";
 
-const visuals = [
+const sections = [
   {
-    src: "/visuels/Maturite-Cybersecurite-en-France-TPE-PME.png",
-    label: "Maturité cybersécurité en France – TPE / PME",
+    title: "Version courte",
+    items: [
+      {
+        src: "/visuels/Short_Versions/10_bonnes_pratiques_numeriques.pdf",
+        label: "10 bonnes pratiques numeriques",
+      },
+    ],
   },
   {
-    src: "/visuels/10-bonnes-pratiques-numeriques.png",
-    label: "10 bonnes pratiques numériques",
+    title: "Version longue",
+    items: [
+      {
+        src: "/visuels/Long_Versions/SensibilisationUtilisateurs_LongVersion.pdf",
+        label: "Sensibilisation des utilisateurs",
+      },
+    ],
+  },
+  {
+    title: "Version educative",
+    items: [],
   },
 ];
 
 export default function SensibilisationVisual() {
   const [activeVisual, setActiveVisual] = useState(null);
 
+  const isPdf = (src) => src.toLowerCase().endsWith(".pdf");
+
+  const visibleSections = sections.filter(
+    (section) => Array.isArray(section.items) && section.items.length > 0
+  );
+
   if (activeVisual) {
     return (
-      <div className="fixed inset-0 z-50 bg-black flex flex-col">
+      <div className="fixed inset-0 z-50 bg-black/90 flex flex-col">
         <button
           onClick={() => setActiveVisual(null)}
           className="m-4 px-4 py-2 bg-white rounded shadow self-start"
@@ -26,34 +44,80 @@ export default function SensibilisationVisual() {
           ← Retour
         </button>
 
-        <div className="flex-1 flex items-center justify-center overflow-auto">
-          <img
-            src={activeVisual.src}
-            alt={activeVisual.label}
-            className="max-w-full max-h-full object-contain"
-          />
+        <div className="mx-4 text-white text-sm">
+          {activeVisual.family} — {activeVisual.label}
+        </div>
+
+        <div className="flex-1 overflow-auto bg-white mx-4 mb-4 mt-2 rounded-xl p-2">
+          {isPdf(activeVisual.src) ? (
+            <iframe
+              src={`${activeVisual.src}#toolbar=1&navpanes=0&scrollbar=1`}
+              title={activeVisual.label}
+              className="w-full min-h-[85vh] rounded-xl border-0"
+            />
+          ) : (
+            <img
+              src={activeVisual.src}
+              alt={activeVisual.label}
+              className="max-w-full max-h-full object-contain mx-auto"
+            />
+          )}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {visuals.map((v, i) => (
-        <button
-          key={i}
-          onClick={() => setActiveVisual(v)}
-          className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 text-center"
-        >
-          <img
-            src={v.src}
-            alt={v.label}
-            className="w-full h-48 object-contain mb-4"
-          />
-          <div className="text-sm font-medium text-slate-700">
-            {v.label}
+    <div className="space-y-10">
+      {visibleSections.map((section) => (
+        <div key={section.title}>
+          <div className="mb-4 text-lg font-semibold text-slate-800">
+            {section.title}
           </div>
-        </button>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {section.items.map((visual, index) => (
+              <div
+                key={`${section.title}-${index}`}
+                role="button"
+                tabIndex={0}
+                onClick={() =>
+                  setActiveVisual({ ...visual, family: section.title })
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setActiveVisual({ ...visual, family: section.title });
+                  }
+                }}
+                className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 text-center cursor-pointer"
+              >
+                <div className="w-full h-56 mb-4 rounded-lg border border-slate-200 bg-slate-50 overflow-hidden">
+                  {isPdf(visual.src) ? (
+                    <iframe
+                      src={`${visual.src}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                      title={visual.label}
+                      className="w-full h-full border-0 bg-white pointer-events-none"
+                    />
+                  ) : (
+                    <img
+                      src={visual.src}
+                      alt={visual.label}
+                      className="w-full h-full object-contain"
+                    />
+                  )}
+                </div>
+
+                <div className="text-xs text-violet-600 mb-1">
+                  {section.title}
+                </div>
+
+                <div className="text-sm font-medium text-slate-700">
+                  {visual.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   );

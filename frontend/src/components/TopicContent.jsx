@@ -1,5 +1,3 @@
-// frontend/src/components/TopicContent.jsx
-
 import React, { useState } from "react";
 
 import WatchGuardVisual from "./WatchGuardVisual";
@@ -9,6 +7,8 @@ import AntispamVisual from "./AntispamVisual";
 import SensibilisationVisual from "./SensibilisationVisual";
 import AuditVisual from "./AuditVisual";
 import CyberAttaquesVisual from "./CyberAttaquesVisual";
+import PentestVisual from "./PentestVisual";
+import MonitoringVisual from "./MonitoringVisual";
 import GenericVisual from "./GenericVisual";
 
 /* ========================= */
@@ -22,6 +22,8 @@ const VISUAL_COMPONENTS = {
   cyber_antispam: AntispamVisual,
   cyber_sensibilisation: SensibilisationVisual,
   cyber_audits: AuditVisual,
+  cyber_pentests: PentestVisual,
+  cyber_monitoring: MonitoringVisual,
   cyber_attaques: CyberAttaquesVisual,
 
   // BACKUP / CONTINUITÉ
@@ -75,13 +77,7 @@ export default function TopicContent({ content, option, topicId }) {
         {option === "4" && (
           <div className="my-8">
             {VisualComponent ? (
-              <VisualComponent
-                topicId={topicId}
-                onOpen={(src) => {
-                  setFullscreenImage(src);
-                  setFullscreen(true);
-                }}
-              />
+              <VisualComponent topicId={topicId} />
             ) : images && images.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {images.map((src, index) => (
