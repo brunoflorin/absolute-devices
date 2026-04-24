@@ -34,6 +34,58 @@ const VISUAL_COMPONENTS = {
   backup_tests: GenericVisual,
   backup_crashdisk: GenericVisual,
   backup_pca_pra_pci: GenericVisual,
+
+  // COLLAB / M365
+  collab_teams: GenericVisual,
+  collab_onedrive: GenericVisual,
+  collab_sharepoint: GenericVisual,
+  collab_m365: GenericVisual,
+  collab_office_suite: GenericVisual,
+  collab_officecom: GenericVisual,
+  collab_outlook: GenericVisual,
+  collab_popimapex: GenericVisual,
+  collab_popimap_exchange: GenericVisual,
+  collab_pop_imap_exchange: GenericVisual,
+  collab_m365_techno: GenericVisual,
+  collab_technologie_m365: GenericVisual,
+
+  // INFRA / GOUV
+  infra_conformites: GenericVisual,
+  infra_conformites_obligations: GenericVisual,
+  infra_rgpd: GenericVisual,
+  infra_obligations: GenericVisual,
+  infra_contrat_maintenance: GenericVisual,
+  infra_maintenance: GenericVisual,
+  infra_maint: GenericVisual,
+  infra_contratmaintenance: GenericVisual,
+  infra_serveurs_windows_ad: GenericVisual,
+  infra_windows_ad: GenericVisual,
+  infra_ad_windows: GenericVisual,
+  infra_serveurs_ad: GenericVisual,
+  infra_windowsad: GenericVisual,
+  infra_hyperv_vm: GenericVisual,
+  infra_hyperv: GenericVisual,
+  infra_vm: GenericVisual,
+  infra_lan_wan_bridge: GenericVisual,
+  infra_lan_wan: GenericVisual,
+  infra_lan: GenericVisual,
+  infra_reseau_lan: GenericVisual,
+  infra_switchs: GenericVisual,
+  infra_switch: GenericVisual,
+  infra_switchs_n1_n2_n3: GenericVisual,
+  infra_rj45_fibre: GenericVisual,
+  infra_rj45: GenericVisual,
+  infra_cablage: GenericVisual,
+  infra_cpl: GenericVisual,
+  infra_telephonie_ip: GenericVisual,
+  infra_telephonie: GenericVisual,
+  infra_adresses_ip: GenericVisual,
+  infra_ip: GenericVisual,
+  infra_politique_motsdepasse: GenericVisual,
+  infra_politique_mots_de_passe: GenericVisual,
+  infra_mots_de_passe: GenericVisual,
+  infra_procedures_internes: GenericVisual,
+  infra_procedures: GenericVisual,
 };
 
 export default function TopicContent({ content, option, topicId }) {
@@ -46,6 +98,11 @@ export default function TopicContent({ content, option, topicId }) {
   const [fullscreenImage, setFullscreenImage] = useState(null);
 
   const VisualComponent = VISUAL_COMPONENTS[topicId] || GenericVisual;
+
+  const openImage = (src) => {
+    setFullscreenImage(src);
+    setFullscreen(true);
+  };
 
   return (
     <>
@@ -80,10 +137,7 @@ export default function TopicContent({ content, option, topicId }) {
               topicId={topicId}
               label={label}
               images={images}
-              onImageOpen={(src) => {
-                setFullscreenImage(src);
-                setFullscreen(true);
-              }}
+              onImageOpen={openImage}
             />
           </div>
         )}
@@ -127,7 +181,10 @@ export default function TopicContent({ content, option, topicId }) {
                     className="w-14 text-center border rounded"
                     value={item.qty || 0}
                     onChange={(e) => {
-                      item.qty = Math.max(0, parseInt(e.target.value, 10) || 0);
+                      item.qty = Math.max(
+                        0,
+                        parseInt(e.target.value, 10) || 0
+                      );
                       setRefresh(Math.random());
                     }}
                   />
