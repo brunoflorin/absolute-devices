@@ -437,11 +437,6 @@ const INFRA_CONTRAT_MAINTENANCE = buildImageSections("BLEU", "BLEU-BD", [
     bdFile: "Contrat_de_Maintenance_BD.png",
     label: "Contrat de maintenance",
   },
-  {
-    file: "Contrat_Maintenance_Version_longue.PNG",
-    bdFile: "Contrat_de_Maintenance_BD.png",
-    label: "Contrat de maintenance - version detaillee",
-  },
 ]);
 
 const INFRA_SERVEURS_WINDOWS_AD = buildImageSections("BLEU", "BLEU-BD", [
