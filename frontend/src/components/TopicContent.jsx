@@ -45,7 +45,7 @@ export default function TopicContent({ content, option, topicId }) {
   const [fullscreen, setFullscreen] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState(null);
 
-  const VisualComponent = VISUAL_COMPONENTS[topicId] || null;
+  const VisualComponent = VISUAL_COMPONENTS[topicId] || GenericVisual;
 
   return (
     <>
@@ -76,28 +76,15 @@ export default function TopicContent({ content, option, topicId }) {
 
         {option === "4" && (
           <div className="my-8">
-            {VisualComponent ? (
-              <VisualComponent topicId={topicId} />
-            ) : images && images.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {images.map((src, index) => (
-                  <img
-                    key={index}
-                    src={src}
-                    alt=""
-                    className="rounded-lg shadow cursor-pointer"
-                    onClick={() => {
-                      setFullscreenImage(src);
-                      setFullscreen(true);
-                    }}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="text-gray-400 italic text-center py-12">
-                Aucun visuel défini pour ce sujet.
-              </div>
-            )}
+            <VisualComponent
+              topicId={topicId}
+              label={label}
+              images={images}
+              onImageOpen={(src) => {
+                setFullscreenImage(src);
+                setFullscreen(true);
+              }}
+            />
           </div>
         )}
 

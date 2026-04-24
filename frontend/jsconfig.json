@@ -1,14 +1,7 @@
-// /frontend/jsconfig.json
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"],
-      "@data/*": ["data/*"]
-    }
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "dist"]
 }

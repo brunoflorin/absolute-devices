@@ -1,215 +1,577 @@
 import React, { useMemo, useState } from "react";
 
-const TOPIC_VISUALS = {
-  backup_acronis: [
-    {
-      title: "Version courte",
-      items: [
-        {
-          src: "/visuels/Short_Versions/Acronis_Backup.pdf",
-          label: "Acronis Backup",
-        },
-        {
-          src: "/visuels/Short_Versions/Acronis_Cyber_Protect_Cloud.pdf",
-          label: "Acronis Cyber Protect Cloud",
-        },
-      ],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/AcronisBackup_LongVersion.pdf",
-          label: "Acronis Backup",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [
-        {
-          src: "/visuels/Educative_Versions/Acronis_Backup.png",
-          label: "Illustration Acronis Backup",
-        },
-      ],
-    },
-  ],
-
-  backup_nas: [
-    {
-      title: "Version courte",
-      items: [],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/NAS_LongVersion.pdf",
-          label: "NAS",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [
-        {
-          src: "/visuels/Educative_Versions/NAS_Synology.png",
-          label: "NAS Synology",
-        },
-        {
-          src: "/visuels/Educative_Versions/NAS_Sauvegardes_Hybrides.png",
-          label: "NAS et sauvegardes hybrides",
-        },
-      ],
-    },
-  ],
-
-  backup_hybride: [
-    {
-      title: "Version courte",
-      items: [],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/SauvegardesHybrides_LongVersion.pdf",
-          label: "Sauvegardes hybrides",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [
-        {
-          src: "/visuels/Educative_Versions/Sauvegardes_hybrides.png",
-          label: "Illustration sauvegardes hybrides",
-        },
-      ],
-    },
-  ],
-
-  backup_integrite: [
-    {
-      title: "Version courte",
-      items: [
-        {
-          src: "/visuels/Short_Versions/Verification_d_integrite_des_sauvegardes.pdf",
-          label: "Verification d'integrite des sauvegardes",
-        },
-      ],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/VerificationIntegrite_LongVersion.pdf",
-          label: "Verification d'integrite",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [],
-    },
-  ],
-
-  backup_tests: [
-    {
-      title: "Version courte",
-      items: [
-        {
-          src: "/visuels/Short_Versions/Tests_de_restauration.pdf",
-          label: "Tests de restauration",
-        },
-      ],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/TestsRestauration_LongVersion.pdf",
-          label: "Tests de restauration",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [
-        {
-          src: "/visuels/Educative_Versions/Tests_de_restauration.png",
-          label: "Illustration tests de restauration",
-        },
-      ],
-    },
-  ],
-
-  backup_crashdisk: [
-    {
-      title: "Version courte",
-      items: [
-        {
-          src: "/visuels/Short_Versions/Qui_est_touche_par_les_ransomwares.pdf",
-          label: "Qui est touche par les ransomwares ?",
-        },
-      ],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/CrashDisk_Cryptolocker_LongVersion.pdf",
-          label: "CrashDisk et cryptolocker",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [
-        {
-          src: "/visuels/Educative_Versions/Comprendre_les_cryptolockers.png",
-          label: "Comprendre les cryptolockers",
-        },
-      ],
-    },
-  ],
-
-  backup_pca_pra_pci: [
-    {
-      title: "Version courte",
-      items: [],
-    },
-    {
-      title: "Version longue",
-      items: [
-        {
-          src: "/visuels/Long_Versions/PCA_PRA_PCI_LongVersion.pdf",
-          label: "PCA / PRA / PCI",
-        },
-      ],
-    },
-    {
-      title: "Version educative",
-      items: [
-        {
-          src: "/visuels/Educative_Versions/PCA_PRA_PCI.png",
-          label: "Illustration PCA / PRA / PCI",
-        },
-      ],
-    },
-  ],
+const buildBdFileName = (fileName) => {
+  const dotIndex = fileName.lastIndexOf(".");
+  const baseName = dotIndex >= 0 ? fileName.slice(0, dotIndex) : fileName;
+  return `${baseName}_BD.PNG`;
 };
 
-export default function GenericVisual({ topicId }) {
-  const [activeVisual, setActiveVisual] = useState(null);
+const buildImageSections = (techFolder, bdFolder, items) => [
+  {
+    title: "Visuel technique",
+    items: items.map(({ file, label }) => ({
+      src: `/visuels/${techFolder}/${file}`,
+      label,
+    })),
+  },
+  {
+    title: "Visuel educatif",
+    items: items.map(({ file, label }) => ({
+      src: `/visuels/${bdFolder}/${buildBdFileName(file)}`,
+      label,
+    })),
+  },
+];
 
-  const sections = useMemo(() => TOPIC_VISUALS[topicId] || [], [topicId]);
+/* ========================= */
+/* ROUGE — CYBER            */
+/* ========================= */
+
+const CYBER_PAREFEU = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "WatchGuard_T115_T125_T145.PNG", label: "WatchGuard T115 / T125 / T145" },
+  {
+    file: "Difference_Firewall_Grand_Public_VS_WatchGuard+licences.png",
+    label: "Grand public vs WatchGuard + licences",
+  },
+  {
+    file: "Comprendre_parefeu_Materiel.png",
+    label: "Comprendre le pare-feu materiel",
+  },
+  {
+    file: "Comprendre_Firewall_Materiel.png",
+    label: "Comprendre le firewall materiel",
+  },
+  {
+    file: "Firewall_Materiel_VS_Logiciel.png",
+    label: "Firewall materiel vs logiciel",
+  },
+  {
+    file: "Firewalls_materiels_et_logiciels.PNG",
+    label: "Firewalls materiels et logiciels",
+  },
+  { file: "VPN-types.PNG", label: "Types de VPN" },
+]);
+
+const CYBER_EDR = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Acronis_EDR.PNG", label: "Acronis EDR" },
+  {
+    file: "Antivirus_Gratuit_VS_Professionnel.png",
+    label: "Antivirus gratuit vs professionnel",
+  },
+  {
+    file: "Antivirus_Pro_VS_EDR.PNG",
+    label: "Antivirus Pro vs EDR",
+  },
+]);
+
+const CYBER_MFA = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Anti_phishing.PNG", label: "Anti-phishing" },
+  { file: "Comprendre_MFA.PNG", label: "Comprendre le MFA" },
+  { file: "Keepass_Pro.png", label: "KeePass Pro" },
+  { file: "Keeper_Pro.png", label: "Keeper Pro" },
+]);
+
+const CYBER_ANTISPAM = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Spams_Greymails_Virus.PNG", label: "Spams, greymails et virus" },
+  { file: "VADE365.PNG", label: "Vade 365" },
+]);
+
+const CYBER_AUDITS = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Audit.PNG", label: "Audit de securite" },
+]);
+
+const CYBER_PENTESTS = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Comprendre_le_Pentest.PNG", label: "Comprendre le pentest" },
+]);
+
+const CYBER_MONITORING = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Atera.PNG", label: "Atera" },
+  { file: "PRTG.PNG", label: "PRTG" },
+  { file: "Acronis.PNG", label: "Acronis" },
+  { file: "Trend_Micro_Worry_Free.PNG", label: "Trend Micro Worry-Free" },
+]);
+
+const CYBER_SENSIBILISATION = buildImageSections("ROUGE", "ROUGE-BD", [
+  {
+    file: "Sensibilisation_des_utilisateurs.PNG",
+    label: "Sensibilisation des utilisateurs",
+  },
+]);
+
+const CYBER_ATTAQUES = buildImageSections("ROUGE", "ROUGE-BD", [
+  { file: "Cyberattaques.PNG", label: "Cyberattaques : pourquoi, comment, qui" },
+  {
+    file: "Comprendre_anti_ransomware.png",
+    label: "Comprendre l'anti-ransomware",
+  },
+  {
+    file: "Comprendre_les_cryptolockers.png",
+    label: "Comprendre les cryptolockers",
+  },
+]);
+
+/* ========================= */
+/* JAUNE — COLLAB / M365    */
+/* ========================= */
+
+const COLLAB_TEAMS = buildImageSections("JAUNE", "JAUNE-BD", [
+  { file: "Teams.PNG", label: "Microsoft Teams" },
+]);
+
+const COLLAB_ONEDRIVE = buildImageSections("JAUNE", "JAUNE-BD", [
+  { file: "OneDrive.PNG", label: "OneDrive" },
+  { file: "OneDrive_Version_Longue.PNG", label: "OneDrive version longue" },
+  { file: "OneDrive_Gratuit_VS_Pro.PNG", label: "OneDrive gratuit vs Pro" },
+]);
+
+const COLLAB_SHAREPOINT = buildImageSections("JAUNE", "JAUNE-BD", [
+  { file: "SharePoint.PNG", label: "SharePoint" },
+]);
+
+const COLLAB_M365 = buildImageSections("JAUNE", "JAUNE-BD", [
+  { file: "M365_Business.PNG", label: "Microsoft 365 Business" },
+  {
+    file: "Versions_M365_Basic_Standard_Premium.png",
+    label: "Versions M365 Basic / Standard / Premium",
+  },
+]);
+
+const COLLAB_OFFICE_SUITE = buildImageSections("JAUNE", "JAUNE-BD", [
+  {
+    file: "Office_VS_Suite_Office_VS_M365.png",
+    label: "Office.com vs Suite Office",
+  },
+]);
+
+const COLLAB_OUTLOOK = buildImageSections("JAUNE", "JAUNE-BD", [
+  { file: "Differents_Outlook.png", label: "Les differents Outlook" },
+]);
+
+const COLLAB_POPIMAPEX = buildImageSections("JAUNE", "JAUNE-BD", [
+  {
+    file: "POP_IMAP_Exchange_Online.png",
+    label: "POP / IMAP / Exchange",
+  },
+  {
+    file: "Exchange365.png",
+    label: "Exchange 365",
+  },
+]);
+
+const COLLAB_M365_TECHNO = buildImageSections("JAUNE", "JAUNE-BD", [
+  { file: "Produits_Microsoft.png", label: "Produits Microsoft" },
+  { file: "Administration_M365.PNG", label: "Administration M365" },
+  { file: "Exchange365.png", label: "Exchange 365" },
+]);
+
+/* ========================= */
+/* VERT — SAUVEGARDE        */
+/* ========================= */
+
+const BACKUP_ACRONIS = buildImageSections("VERT", "VERT-BD", [
+  { file: "Acronis_Backup.png", label: "Acronis Backup" },
+]);
+
+const BACKUP_NAS = buildImageSections("VERT", "VERT-BD", [
+  { file: "Serveurs_NAS.png", label: "Serveurs NAS" },
+]);
+
+const BACKUP_SAUVEGARDES = buildImageSections("VERT", "VERT-BD", [
+  { file: "Sauvegardes_Hybrides.png", label: "Sauvegardes hybrides" },
+  { file: "Sauvegardes_Cloud.png", label: "Sauvegardes Cloud" },
+  { file: "Sauvegardes_Locales.png", label: "Sauvegardes locales" },
+  {
+    file: "Sauvegardes_Locales_VS_Cloud_VS_Hybrides.png",
+    label: "Sauvegardes locales vs Cloud vs hybrides",
+  },
+]);
+
+const BACKUP_INTEGRITE = buildImageSections("VERT", "VERT-BD", [
+  { file: "Verification_integrite.png", label: "Verification d'integrite" },
+]);
+
+const BACKUP_TESTS = buildImageSections("VERT", "VERT-BD", [
+  { file: "Test_de_restauration.png", label: "Test de restauration" },
+]);
+
+const BACKUP_CRASHDISK = buildImageSections("VERT", "VERT-BD", [
+  { file: "Crashdisk.png", label: "Crashdisk" },
+  { file: "Cryptolockers.png", label: "Cryptolockers" },
+]);
+
+const BACKUP_PCA_PRA_PCI = buildImageSections("VERT", "VERT-BD", [
+  { file: "PCA.png", label: "PCA" },
+  { file: "PRA.png", label: "PRA" },
+  { file: "PCI.png", label: "PCI" },
+  {
+    file: "Differences_PCA_PRA_PCI.png",
+    label: "Differences PCA / PRA / PCI",
+  },
+]);
+
+/* ========================= */
+/* BLEU — INFRA / GOUV      */
+/* ========================= */
+
+const INFRA_CONFORMITES = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "RGPD.png", label: "Conformites et obligations" },
+  { file: "NIS2.PNG", label: "NIS2" },
+  { file: "DORA.png", label: "DORA" },
+  { file: "CRA.png", label: "CRA" },
+  { file: "Loi_Antifraude.PNG", label: "Loi antifraude" },
+]);
+
+const INFRA_CONTRAT_MAINTENANCE = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "Contrat_de_Maintenance.png", label: "Contrat de maintenance" },
+  {
+    file: "Contrat_Maintenance_Version_longue.PNG",
+    label: "Contrat de maintenance - version detaillee",
+  },
+]);
+
+const INFRA_SERVEURS_WINDOWS_AD = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "AD_&_Serveur_Windows.PNG", label: "AD et serveur Windows" },
+  {
+    file: "Serveurs_Windows_et_AD.png",
+    label: "Serveurs Windows et Active Directory",
+  },
+  {
+    file: "Comprendre_Serveur_Windows.PNG",
+    label: "Comprendre le serveur Windows",
+  },
+]);
+
+const INFRA_HYPERV_VM = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "HyperV_et_VM.PNG", label: "Hyper-V et VM" },
+]);
+
+const INFRA_LAN_WAN_BRIDGE = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "Lan_Wan_Bridge.png", label: "LAN / WAN / Bridge" },
+]);
+
+const INFRA_SWITCHS = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "Switchs_N1_N2_N3.png", label: "Switchs N1 / N2 / N3" },
+]);
+
+const INFRA_RJ45_FIBRE = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "RJ45.PNG", label: "RJ45" },
+  {
+    file: "RJ45_Fibre_&_blindage.PNG",
+    label: "RJ45, fibre et blindage",
+  },
+]);
+
+const INFRA_CPL = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "CPL.png", label: "CPL" },
+]);
+
+const INFRA_TELEPHONIE_IP = buildImageSections("BLEU", "BLEU-BD", [
+  {
+    file: "Telephonie_IP_dans_le_reseau.png",
+    label: "Telephonie IP dans le reseau",
+  },
+]);
+
+const INFRA_ADRESSES_IP = buildImageSections("BLEU", "BLEU-BD", [
+  { file: "Adresses_IP.png", label: "Adresses IP" },
+]);
+
+const INFRA_POLITIQUE_MOTSDEPASSE = buildImageSections("BLEU", "BLEU-BD", [
+  {
+    file: "Politique_mots_de_passe.PNG",
+    label: "Politique de mots de passe",
+  },
+]);
+
+const INFRA_PROCEDURES_INTERNES = buildImageSections("BLEU", "BLEU-BD", [
+  {
+    file: "Procedures_internes.PNG",
+    label: "Procedures internes",
+  },
+]);
+
+/* ========================= */
+/* TOPIC MAP                */
+/* ========================= */
+
+const TOPIC_VISUALS = {
+  // ROUGE
+  cyber_parefeu: CYBER_PAREFEU,
+  cyber_edr: CYBER_EDR,
+  cyber_mfa: CYBER_MFA,
+  cyber_antispam: CYBER_ANTISPAM,
+  cyber_audits: CYBER_AUDITS,
+  cyber_pentests: CYBER_PENTESTS,
+  cyber_monitoring: CYBER_MONITORING,
+  cyber_sensibilisation: CYBER_SENSIBILISATION,
+  cyber_attaques: CYBER_ATTAQUES,
+
+  // JAUNE
+  collab_teams: COLLAB_TEAMS,
+  collab_onedrive: COLLAB_ONEDRIVE,
+  collab_sharepoint: COLLAB_SHAREPOINT,
+  collab_m365: COLLAB_M365,
+  collab_office_suite: COLLAB_OFFICE_SUITE,
+  collab_officecom: COLLAB_OFFICE_SUITE,
+  collab_outlook: COLLAB_OUTLOOK,
+  collab_popimapex: COLLAB_POPIMAPEX,
+  collab_popimap_exchange: COLLAB_POPIMAPEX,
+  collab_pop_imap_exchange: COLLAB_POPIMAPEX,
+  collab_m365_techno: COLLAB_M365_TECHNO,
+  collab_technologie_m365: COLLAB_M365_TECHNO,
+
+  // VERT
+  backup_acronis: BACKUP_ACRONIS,
+  backup_nas: BACKUP_NAS,
+  backup_hybride: BACKUP_SAUVEGARDES,
+  backup_sauvegardes: BACKUP_SAUVEGARDES,
+  backup_integrite: BACKUP_INTEGRITE,
+  backup_tests: BACKUP_TESTS,
+  backup_crashdisk: BACKUP_CRASHDISK,
+  backup_pca_pra_pci: BACKUP_PCA_PRA_PCI,
+
+  // BLEU
+  infra_conformites: INFRA_CONFORMITES,
+  infra_conformites_obligations: INFRA_CONFORMITES,
+  infra_rgpd: INFRA_CONFORMITES,
+  infra_obligations: INFRA_CONFORMITES,
+
+  infra_contrat_maintenance: INFRA_CONTRAT_MAINTENANCE,
+  infra_maintenance: INFRA_CONTRAT_MAINTENANCE,
+  infra_maint: INFRA_CONTRAT_MAINTENANCE,
+  infra_contratmaintenance: INFRA_CONTRAT_MAINTENANCE,
+
+  infra_serveurs_windows_ad: INFRA_SERVEURS_WINDOWS_AD,
+  infra_windows_ad: INFRA_SERVEURS_WINDOWS_AD,
+  infra_ad_windows: INFRA_SERVEURS_WINDOWS_AD,
+  infra_serveurs_ad: INFRA_SERVEURS_WINDOWS_AD,
+  infra_windowsad: INFRA_SERVEURS_WINDOWS_AD,
+
+  infra_hyperv_vm: INFRA_HYPERV_VM,
+  infra_hyperv: INFRA_HYPERV_VM,
+  infra_vm: INFRA_HYPERV_VM,
+
+  infra_lan_wan_bridge: INFRA_LAN_WAN_BRIDGE,
+  infra_lan_wan: INFRA_LAN_WAN_BRIDGE,
+  infra_lan: INFRA_LAN_WAN_BRIDGE,
+  infra_reseau_lan: INFRA_LAN_WAN_BRIDGE,
+
+  infra_switchs: INFRA_SWITCHS,
+  infra_switch: INFRA_SWITCHS,
+  infra_switchs_n1_n2_n3: INFRA_SWITCHS,
+
+  infra_rj45_fibre: INFRA_RJ45_FIBRE,
+  infra_rj45: INFRA_RJ45_FIBRE,
+  infra_cablage: INFRA_RJ45_FIBRE,
+
+  infra_cpl: INFRA_CPL,
+
+  infra_telephonie_ip: INFRA_TELEPHONIE_IP,
+  infra_telephonie: INFRA_TELEPHONIE_IP,
+
+  infra_adresses_ip: INFRA_ADRESSES_IP,
+  infra_ip: INFRA_ADRESSES_IP,
+
+  infra_politique_motsdepasse: INFRA_POLITIQUE_MOTSDEPASSE,
+  infra_politique_mots_de_passe: INFRA_POLITIQUE_MOTSDEPASSE,
+  infra_mots_de_passe: INFRA_POLITIQUE_MOTSDEPASSE,
+
+  infra_procedures_internes: INFRA_PROCEDURES_INTERNES,
+  infra_procedures: INFRA_PROCEDURES_INTERNES,
+};
+
+function normalizeString(value = "") {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, " ")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
+}
+
+function resolveTopicKey(topicId, label) {
+  if (TOPIC_VISUALS[topicId]) return topicId;
+
+  const normalizedTopicId = normalizeString(topicId || "");
+  const normalizedLabel = normalizeString(label || "");
+  const combined = `${normalizedTopicId} ${normalizedLabel}`.trim();
+
+  // JAUNE
+  if (
+    combined.includes("pop") ||
+    combined.includes("imap") ||
+    combined.includes("exchange")
+  ) {
+    return "collab_popimapex";
+  }
+
+  if (
+    combined.includes("office com") ||
+    combined.includes("suite office") ||
+    combined.includes("office suite")
+  ) {
+    return "collab_office_suite";
+  }
+
+  if (
+    combined.includes("technologie microsoft 365") ||
+    combined.includes("technologie m365") ||
+    combined.includes("m365 techno")
+  ) {
+    return "collab_m365_techno";
+  }
+
+  if (
+    combined.includes("m365 basic") ||
+    combined.includes("m365 business") ||
+    combined.includes("basic standard premium")
+  ) {
+    return "collab_m365";
+  }
+
+  if (combined.includes("outlook")) {
+    return "collab_outlook";
+  }
+
+  if (combined.includes("onedrive")) {
+    return "collab_onedrive";
+  }
+
+  if (combined.includes("sharepoint")) {
+    return "collab_sharepoint";
+  }
+
+  if (combined.includes("teams")) {
+    return "collab_teams";
+  }
+
+  // BLEU
+  if (
+    combined.includes("lan") ||
+    combined.includes("wan") ||
+    combined.includes("bridge")
+  ) {
+    return "infra_lan";
+  }
+
+  if (
+    combined.includes("serveurs windows") ||
+    combined.includes("serveur windows") ||
+    combined.includes("active directory") ||
+    combined.includes("windows ad")
+  ) {
+    return "infra_windowsad";
+  }
+
+  if (
+    combined.includes("contrat de maintenance") ||
+    combined.includes("maintenance")
+  ) {
+    return "infra_maintenance";
+  }
+
+  if (
+    combined.includes("conformites") ||
+    combined.includes("obligations") ||
+    combined.includes("rgpd") ||
+    combined.includes("nis2") ||
+    combined.includes("dora") ||
+    combined.includes("cra") ||
+    combined.includes("antifraude")
+  ) {
+    return "infra_conformites";
+  }
+
+  if (combined.includes("adresse ip") || combined.includes("adresses ip")) {
+    return "infra_ip";
+  }
+
+  if (combined.includes("switch")) {
+    return "infra_switch";
+  }
+
+  if (combined.includes("telephonie ip")) {
+    return "infra_telephonie";
+  }
+
+  if (combined.includes("cpl")) {
+    return "infra_cpl";
+  }
+
+  if (
+    combined.includes("rj45") ||
+    combined.includes("fibre") ||
+    combined.includes("blindage")
+  ) {
+    return "infra_rj45";
+  }
+
+  if (combined.includes("hyper v") || combined.includes("vm")) {
+    return "infra_hyperv";
+  }
+
+  if (combined.includes("mot de passe")) {
+    return "infra_mots_de_passe";
+  }
+
+  if (combined.includes("procedure")) {
+    return "infra_procedures";
+  }
+
+  // VERT
+  if (combined.includes("acronis")) return "backup_acronis";
+  if (combined.includes("nas")) return "backup_nas";
+  if (combined.includes("sauvegarde")) return "backup_hybride";
+  if (combined.includes("integrite")) return "backup_integrite";
+  if (combined.includes("restauration")) return "backup_tests";
+  if (
+    combined.includes("crashdisk") ||
+    combined.includes("cryptolocker")
+  ) {
+    return "backup_crashdisk";
+  }
+  if (
+    combined.includes("pca") ||
+    combined.includes("pra") ||
+    combined.includes("pci")
+  ) {
+    return "backup_pca_pra_pci";
+  }
+
+  return null;
+}
+
+export default function GenericVisual({ topicId, label }) {
+  const [activeVisual, setActiveVisual] = useState(null);
+  const [hiddenSrcs, setHiddenSrcs] = useState({});
+
+  const resolvedTopicKey = useMemo(
+    () => resolveTopicKey(topicId, label),
+    [topicId, label]
+  );
+
+  const sections = useMemo(
+    () => TOPIC_VISUALS[resolvedTopicKey] || [],
+    [resolvedTopicKey]
+  );
 
   const isPdf = (src) => src.toLowerCase().endsWith(".pdf");
 
-  const visibleSections = sections.filter(
-    (section) => Array.isArray(section.items) && section.items.length > 0
-  );
+  const hideVisual = (src) => {
+    setHiddenSrcs((prev) => ({
+      ...prev,
+      [src]: true,
+    }));
+  };
+
+  const visibleSections = sections
+    .map((section) => ({
+      ...section,
+      items: (section.items || []).filter((item) => !hiddenSrcs[item.src]),
+    }))
+    .filter((section) => section.items.length > 0);
 
   if (activeVisual) {
     return (
@@ -228,7 +590,7 @@ export default function GenericVisual({ topicId }) {
         <div className="flex-1 overflow-auto bg-white mx-4 mb-4 mt-2 rounded-xl p-2">
           {isPdf(activeVisual.src) ? (
             <iframe
-              src={`${activeVisual.src}#toolbar=1&navpanes=0&scrollbar=1`}
+              src={activeVisual.src}
               title={activeVisual.label}
               className="w-full min-h-[85vh] rounded-xl border-0"
             />
@@ -247,7 +609,7 @@ export default function GenericVisual({ topicId }) {
   if (!visibleSections.length) {
     return (
       <div className="text-gray-400 italic text-center py-12">
-        Aucun visuel défini pour ce sujet.
+        Aucun visuel defini pour ce sujet.
       </div>
     );
   }
@@ -263,7 +625,7 @@ export default function GenericVisual({ topicId }) {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {section.items.map((visual, index) => (
               <div
-                key={`${section.title}-${index}`}
+                key={`${section.title}-${index}-${visual.src}`}
                 role="button"
                 tabIndex={0}
                 onClick={() =>
@@ -276,10 +638,10 @@ export default function GenericVisual({ topicId }) {
                 }}
                 className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 text-center cursor-pointer"
               >
-                <div className="w-full h-56 mb-4 rounded-lg border border-slate-200 bg-slate-50 overflow-hidden">
+                <div className="w-full h-56 mb-4 rounded-lg border border-slate-200 bg-slate-50 overflow-hidden flex items-center justify-center">
                   {isPdf(visual.src) ? (
                     <iframe
-                      src={`${visual.src}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                      src={visual.src}
                       title={visual.label}
                       className="w-full h-full border-0 bg-white pointer-events-none"
                     />
@@ -288,6 +650,8 @@ export default function GenericVisual({ topicId }) {
                       src={visual.src}
                       alt={visual.label}
                       className="w-full h-full object-contain"
+                      loading="lazy"
+                      onError={() => hideVisual(visual.src)}
                     />
                   )}
                 </div>
@@ -306,4 +670,4 @@ export default function GenericVisual({ topicId }) {
       ))}
     </div>
   );
-}
+} 
