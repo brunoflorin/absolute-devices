@@ -121,6 +121,7 @@ const CYBER_MFA = buildImageSections(
     },
     {
       file: "Comprendre_antiransomware.png",
+      bdFile: "Comprendre_antiransomware_BD.png",
       label: "Comprendre l'antiransomware",
     },
     {
@@ -438,6 +439,7 @@ const INFRA_CONTRAT_MAINTENANCE = buildImageSections("BLEU", "BLEU-BD", [
   },
   {
     file: "Contrat_Maintenance_Version_longue.PNG",
+    bdFile: "Contrat_de_Maintenance_BD.png",
     label: "Contrat de maintenance - version detaillee",
   },
 ]);
@@ -579,6 +581,7 @@ const TOPIC_VISUALS = {
   infra_obligations: INFRA_CONFORMITES,
 
   infra_antifraude: INFRA_ANTIFRAUDE,
+  infra_loi_antifraude: INFRA_ANTIFRAUDE,
 
   infra_contrat_maintenance: INFRA_CONTRAT_MAINTENANCE,
   infra_maintenance: INFRA_CONTRAT_MAINTENANCE,
@@ -624,7 +627,34 @@ const TOPIC_VISUALS = {
   infra_procedures: INFRA_PROCEDURES_INTERNES,
 };
 
-const LABEL_ALIASES = {
+const EXACT_TOPIC_ALIASES = {
+  "infra lan wan mode bridge": "infra_lan_wan_bridge",
+  "infra lan wan bridge": "infra_lan_wan_bridge",
+  "infra lan wan": "infra_lan_wan_bridge",
+  "infra lan": "infra_lan_wan_bridge",
+
+  "infra serveurs windows ad": "infra_serveurs_windows_ad",
+  "infra serveur windows ad": "infra_serveurs_windows_ad",
+  "infra windows ad": "infra_serveurs_windows_ad",
+  "infra serveurs ad": "infra_serveurs_windows_ad",
+
+  "infra antifraude": "infra_antifraude",
+  "infra loi antifraude": "infra_antifraude",
+
+  "infra politique motsdepasse": "infra_politique_motsdepasse",
+  "infra politique mots de passe": "infra_politique_motsdepasse",
+  "infra mots de passe": "infra_politique_motsdepasse",
+
+  "infra procedures internes": "infra_procedures_internes",
+  "infra procedures": "infra_procedures_internes",
+
+  "infra contrat maintenance": "infra_contrat_maintenance",
+  "infra contrat de maintenance": "infra_contrat_maintenance",
+  "infra maintenance": "infra_contrat_maintenance",
+  "infra contrat maintenance absolute micro": "infra_contrat_maintenance",
+};
+
+const EXACT_LABEL_ALIASES = {
   "switchs n1 n2 n3": "infra_switchs",
   "lan wan mode bridge": "infra_lan_wan_bridge",
   cpl: "infra_cpl",
@@ -669,16 +699,16 @@ function resolveTopicKey(topicId, label) {
   const normalizedLabel = normalizeString(label || "");
   const combined = `${normalizedTopicId} ${normalizedLabel}`.trim();
 
-  if (LABEL_ALIASES[normalizedTopicId]) {
-    return LABEL_ALIASES[normalizedTopicId];
+  if (EXACT_TOPIC_ALIASES[normalizedTopicId]) {
+    return EXACT_TOPIC_ALIASES[normalizedTopicId];
   }
 
-  if (LABEL_ALIASES[normalizedLabel]) {
-    return LABEL_ALIASES[normalizedLabel];
+  if (EXACT_LABEL_ALIASES[normalizedLabel]) {
+    return EXACT_LABEL_ALIASES[normalizedLabel];
   }
 
-  if (LABEL_ALIASES[combined]) {
-    return LABEL_ALIASES[combined];
+  if (EXACT_LABEL_ALIASES[combined]) {
+    return EXACT_LABEL_ALIASES[combined];
   }
 
   // JAUNE
@@ -735,25 +765,21 @@ function resolveTopicKey(topicId, label) {
     return "infra_antifraude";
   }
 
-  if (combined.includes("rgpd")) {
-    return "infra_rgpd";
-  }
-
   if (
     combined.includes("conformites") ||
     combined.includes("obligations") ||
     combined.includes("nis2") ||
     combined.includes("dora") ||
-    combined.includes("cra")
+    combined.includes("cra") ||
+    combined.includes("rgpd")
   ) {
     return "infra_conformites";
   }
 
   if (
-    combined.includes("lan wan mode bridge") ||
-    (combined.includes("lan") &&
-      combined.includes("wan") &&
-      combined.includes("bridge"))
+    combined.includes("lan") &&
+    combined.includes("wan") &&
+    combined.includes("bridge")
   ) {
     return "infra_lan_wan_bridge";
   }

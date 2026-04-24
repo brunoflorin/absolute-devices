@@ -5,6 +5,7 @@ import { topics } from "./tinaBase";
 //   "1" = courte
 //   "2" = étendue
 //   "3" = tarifaire
+//   "4" = visuels
 //
 // level :
 //   "a" = vulgarisé
@@ -15,12 +16,21 @@ export function getTopicContent(topicId, option, level) {
   const topic = topics[topicId];
   if (!topic) return null;
 
+  const baseContent = {
+    label: topic.label,
+    images: topic.images ?? [],
+  };
+
+  // --- VISUELS --------------------------------------------------------------
+  if (option === "4") {
+    return baseContent;
+  }
+
   // --- TARIFAIRE ------------------------------------------------------------
   if (option === "3") {
     return {
-      label: topic.label,
+      ...baseContent,
       pricing: topic.pricing,
-      images: topic.images ?? []
     };
   }
 
@@ -32,9 +42,8 @@ export function getTopicContent(topicId, option, level) {
         : topic.short?.technique;
 
     return {
-      label: topic.label,
+      ...baseContent,
       text,
-      images: topic.images ?? []
     };
   }
 
@@ -46,11 +55,11 @@ export function getTopicContent(topicId, option, level) {
         : topic.extended?.technique;
 
     return {
-      label: topic.label,
+      ...baseContent,
       text,
-      images: topic.images ?? []
     };
   }
 
-  return null;
+  // --- FALLBACK -------------------------------------------------------------
+  return baseContent;
 }
