@@ -4,6 +4,7 @@ import ColorVisualGroup from "./ColorVisualGroup";
 const items = [
   {
     file: "Comprendre_MFA.PNG",
+    bdFile: "MFA_BD.png",
     label: "Comprendre le MFA",
   },
   {

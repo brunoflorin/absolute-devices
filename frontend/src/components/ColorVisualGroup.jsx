@@ -1,29 +1,27 @@
 import React, { useMemo, useState } from "react";
 
-function buildEducatifFileName(fileName) {
-  const baseName = fileName.replace(/\.[^.]+$/, "");
-  return `${baseName}_BD.PNG`;
-}
+const buildDefaultBdFileName = (fileName) => {
+  const dotIndex = fileName.lastIndexOf(".");
+  const baseName = dotIndex >= 0 ? fileName.slice(0, dotIndex) : fileName;
+  const extension = dotIndex >= 0 ? fileName.slice(dotIndex) : ".png";
+  return `${baseName}_BD${extension}`;
+};
 
-function buildTechniqueItems(folder, items) {
-  return items.map((item) => ({
-    src: `/visuels/${folder}/${item.file}`,
-    label: item.label,
+const buildTechniqueItems = (folder, items) =>
+  items.map(({ file, label }) => ({
+    src: `/visuels/${folder}/${file}`,
+    label,
   }));
-}
 
-function buildEducatifItems(folder, items) {
-  return items.map((item) => ({
-    src: `/visuels/${folder}-BD/${buildEducatifFileName(item.file)}`,
-    label: item.label,
+const buildEducatifItems = (folder, items) =>
+  items.map(({ file, bdFile, label }) => ({
+    src: `/visuels/${folder}-BD/${bdFile || buildDefaultBdFileName(file)}`,
+    label,
   }));
-}
 
 export default function ColorVisualGroup({ folder, items = [] }) {
   const [activeVisual, setActiveVisual] = useState(null);
   const [hiddenSrcs, setHiddenSrcs] = useState({});
-
-  const isPdf = (src) => src.toLowerCase().endsWith(".pdf");
 
   const sections = useMemo(() => {
     const techniqueItems = buildTechniqueItems(folder, items).filter(
@@ -55,19 +53,11 @@ export default function ColorVisualGroup({ folder, items = [] }) {
         </div>
 
         <div className="flex-1 overflow-auto bg-white mx-4 mb-4 mt-2 rounded-xl p-2">
-          {isPdf(activeVisual.src) ? (
-            <iframe
-              src={`${activeVisual.src}#toolbar=1&navpanes=0&scrollbar=1`}
-              title={activeVisual.label}
-              className="w-full min-h-[85vh] rounded-xl border-0"
-            />
-          ) : (
-            <img
-              src={activeVisual.src}
-              alt={activeVisual.label}
-              className="max-w-full max-h-full object-contain mx-auto"
-            />
-          )}
+          <img
+            src={activeVisual.src}
+            alt={activeVisual.label}
+            className="max-w-full max-h-full object-contain mx-auto"
+          />
         </div>
       </div>
     );
@@ -92,7 +82,7 @@ export default function ColorVisualGroup({ folder, items = [] }) {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {section.items.map((visual, index) => (
               <div
-                key={`${section.title}-${index}`}
+                key={`${section.title}-${index}-${visual.src}`}
                 role="button"
                 tabIndex={0}
                 onClick={() =>
@@ -105,26 +95,19 @@ export default function ColorVisualGroup({ folder, items = [] }) {
                 }}
                 className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 text-center cursor-pointer"
               >
-                <div className="w-full h-56 mb-4 rounded-lg border border-slate-200 bg-slate-50 overflow-hidden">
-                  {isPdf(visual.src) ? (
-                    <iframe
-                      src={`${visual.src}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-                      title={visual.label}
-                      className="w-full h-full border-0 bg-white pointer-events-none"
-                    />
-                  ) : (
-                    <img
-                      src={visual.src}
-                      alt={visual.label}
-                      className="w-full h-full object-contain"
-                      onError={() =>
-                        setHiddenSrcs((prev) => ({
-                          ...prev,
-                          [visual.src]: true,
-                        }))
-                      }
-                    />
-                  )}
+                <div className="w-full h-56 mb-4 rounded-lg border border-slate-200 bg-slate-50 overflow-hidden flex items-center justify-center">
+                  <img
+                    src={visual.src}
+                    alt={visual.label}
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                    onError={() =>
+                      setHiddenSrcs((prev) => ({
+                        ...prev,
+                        [visual.src]: true,
+                      }))
+                    }
+                  />
                 </div>
 
                 <div className="text-xs text-violet-600 mb-1">

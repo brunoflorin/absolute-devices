@@ -12,6 +12,7 @@ const items = [
   },
   {
     file: "Acronis.PNG",
+    bdFile: "Acronis_BD.PNG",
     label: "Acronis",
   },
   {

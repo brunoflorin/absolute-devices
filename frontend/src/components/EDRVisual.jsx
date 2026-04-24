@@ -4,6 +4,7 @@ import ColorVisualGroup from "./ColorVisualGroup";
 const items = [
   {
     file: "Acronis_EDR.PNG",
+    bdFile: "Acronis_EDR_BD.PNG",
     label: "Acronis EDR",
   },
   {
