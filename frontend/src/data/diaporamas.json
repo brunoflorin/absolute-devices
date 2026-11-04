@@ -143,5 +143,286 @@
       "p-7.png",
       "p-8.png"
     ]
+  },
+  {
+    "key": "antifraude",
+    "titre": "Loi anti-fraude TVA",
+    "sousTitre": "Caisse et logiciel de gestion : ce que la loi impose, et comment être en règle",
+    "couleur": "#B45309",
+    "topics": [
+      "infra_antifraude"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "audits",
+    "titre": "Audit de sécurité",
+    "sousTitre": "Savoir où vous en êtes avant que quelqu'un d'autre ne le découvre",
+    "couleur": "#0369A1",
+    "topics": [
+      "cyber_audits"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "contrat_maintenance",
+    "titre": "Contrat de maintenance",
+    "sousTitre": "Votre informatique suivie, entretenue et dépannée par Absolute Micro",
+    "couleur": "#C5161D",
+    "topics": [
+      "infra_contrat"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "cpl",
+    "titre": "CPL",
+    "sousTitre": "Le réseau par les prises électriques : pratique, mais pas magique",
+    "couleur": "#4D7C0F",
+    "topics": [
+      "infra_cpl"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "cyberattaques",
+    "titre": "Cyberattaques",
+    "sousTitre": "Pourquoi, comment, et pourquoi vous aussi",
+    "couleur": "#9F1239",
+    "topics": [
+      "cyber_attaques"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "mots_de_passe",
+    "titre": "Politique de mots de passe",
+    "sousTitre": "Longs, uniques, rangés dans un coffre, et doublés d'une deuxième clé",
+    "couleur": "#A21CAF",
+    "topics": [
+      "infra_passwords"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "pentests",
+    "titre": "Test d'intrusion",
+    "sousTitre": "Se faire attaquer pour de faux, avant de l'être pour de vrai",
+    "couleur": "#BE123C",
+    "topics": [
+      "cyber_pentests"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "procedures",
+    "titre": "Procédures internes",
+    "sousTitre": "Savoir qui fait quoi, et quoi faire quand ça arrive",
+    "couleur": "#3F6212",
+    "topics": [
+      "infra_process"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "reseau_lan_wan",
+    "titre": "LAN, WAN & mode bridge",
+    "sousTitre": "Comprendre ce qui se passe entre vos ordinateurs et Internet",
+    "couleur": "#92400E",
+    "topics": [
+      "infra_reseau"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "rgpd",
+    "titre": "RGPD",
+    "sousTitre": "Protéger les données personnelles de vos clients et salariés, sans usine à gaz",
+    "couleur": "#DB2777",
+    "topics": [
+      "infra_rgpd"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "rj45",
+    "titre": "Câblage RJ45",
+    "sousTitre": "Le câble, la catégorie et le brassage : les fondations du réseau",
+    "couleur": "#475569",
+    "topics": [
+      "infra_rj45"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "sensibilisation",
+    "titre": "Sensibilisation des utilisateurs",
+    "sousTitre": "Le meilleur pare-feu se trouve entre la chaise et le clavier",
+    "couleur": "#CA8A04",
+    "topics": [
+      "cyber_sensibilisation"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "serveurs_ad",
+    "titre": "Serveur Windows & Active Directory",
+    "sousTitre": "Un annuaire central pour les comptes, les droits et les règles du réseau",
+    "couleur": "#0F4C5C",
+    "topics": [
+      "infra_serveurs"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
+  },
+  {
+    "key": "supervision",
+    "titre": "Supervision du parc",
+    "sousTitre": "Voir les pannes arriver avant qu'elles ne vous arrêtent",
+    "couleur": "#0891B2",
+    "topics": [
+      "cyber_monitoring"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "switchs",
+    "titre": "Switchs",
+    "sousTitre": "L'aiguilleur du réseau : chaque information au bon endroit",
+    "couleur": "#155E75",
+    "topics": [
+      "infra_switchs"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png",
+      "p-8.png"
+    ]
   }
 ]
