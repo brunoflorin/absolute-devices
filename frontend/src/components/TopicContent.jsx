@@ -10,6 +10,7 @@ import CyberAttaquesVisual from "./CyberAttaquesVisual";
 import PentestVisual from "./PentestVisual";
 import MonitoringVisual from "./MonitoringVisual";
 import GenericVisual from "./GenericVisual";
+import Diaporama from "./Diaporama";
 
 /* ========================= */
 /* MAPPING TOPIC → VISUEL    */
@@ -89,7 +90,7 @@ const VISUAL_COMPONENTS = {
 };
 
 export default function TopicContent({ content, option, topicId }) {
-  if (!content && option !== "4") return null;
+  if (!content && option !== "4" && option !== "5") return null;
 
   const { label, text, pricing, images } = content || {};
   const [refresh, setRefresh] = useState(0);
@@ -142,7 +143,13 @@ export default function TopicContent({ content, option, topicId }) {
           </div>
         )}
 
-        {option !== "4" && text && (
+        {option === "5" && (
+          <div className="my-4">
+            <Diaporama topicId={topicId} />
+          </div>
+        )}
+
+        {option !== "4" && option !== "5" && text && (
           <div className="whitespace-pre-line text-gray-800 leading-relaxed mb-6">
             {text}
           </div>

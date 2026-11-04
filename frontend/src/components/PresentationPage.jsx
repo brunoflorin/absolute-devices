@@ -141,6 +141,7 @@ function getModeLabel(option, level) {
       : "Version tarifaire – technique";
 
   if (option === "4") return "Visuels";
+  if (option === "5") return "Diaporama";
 
   return "";
 }

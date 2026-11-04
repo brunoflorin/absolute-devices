@@ -61,6 +61,18 @@ export default function ModeDetailSelect({ option, level, setOption, setLevel })
             Visuels
           </button>
 
+          {/* DIAPORAMA */}
+          <button
+            className={`px-3 py-1.5 rounded-full text-xs border transition ${
+              option === "5"
+                ? "bg-rose-600 text-white border-rose-600"
+                : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+            }`}
+            onClick={() => setOption("5")}
+          >
+            Diaporama
+          </button>
+
         </div>
 
         {/* Niveau de détail */}
