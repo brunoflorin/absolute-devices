@@ -139,3 +139,30 @@ export function packet(x, y, w, fields, { accent = "#0f172a", danger = false, ti
 export function svg(W, H, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="${FONT}">${body}</svg>`;
 }
+
+// ---------- Compléments
+export function person(x, y, s, color = "#64748b", bg = "#e2e8f0") {
+  return `<circle cx="${x}" cy="${y}" r="${s / 2}" fill="${bg}"/>` +
+    `<circle cx="${x}" cy="${y - s * 0.12}" r="${s * 0.17}" fill="${color}"/>` +
+    `<path d="M ${x - s * 0.3} ${y + s * 0.34} q ${s * 0.3} ${-s * 0.38} ${s * 0.6} 0" fill="${color}"/>`;
+}
+export function doc(x, y, s, name, { color = "#334155", accent = "#2563eb", danger = false } = {}) {
+  const w = s * 0.78, h = s, c = danger ? "#dc2626" : accent;
+  let o = `<path d="M ${x - w / 2} ${y - h / 2} h ${w * 0.68} l ${w * 0.32} ${w * 0.32} v ${h - w * 0.32} h ${-w} z" fill="#ffffff" stroke="${danger ? c : color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  o += `<path d="M ${x + w * 0.18} ${y - h / 2} v ${w * 0.32} h ${w * 0.32}" fill="none" stroke="${danger ? c : color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  for (let i = 0; i < 3; i++) o += `<rect x="${x - w * 0.32}" y="${y - h * 0.08 + i * h * 0.15}" width="${w * (i === 2 ? 0.4 : 0.64)}" height="${h * 0.05}" rx="2" fill="${c}" opacity="0.5"/>`;
+  if (name) o += label(x, y + h / 2 + 20, name, { size: 12, color: danger ? c : color, weight: 600, mono: true });
+  return o;
+}
+export function nas(x, y, s, color = "#334155", led = "#22c55e") {
+  let o = `<rect x="${x - s * 0.35}" y="${y - s * 0.45}" width="${s * 0.7}" height="${s * 0.9}" rx="${s * 0.08}" fill="#f8fafc" stroke="${color}" stroke-width="2.5"/>`;
+  for (let i = 0; i < 4; i++) o += `<rect x="${x - s * 0.25}" y="${y - s * 0.35 + i * s * 0.18}" width="${s * 0.5}" height="${s * 0.12}" rx="3" fill="#e2e8f0" stroke="${color}" stroke-width="1.5"/><circle cx="${x + s * 0.17}" cy="${y - s * 0.29 + i * s * 0.18}" r="${s * 0.025}" fill="${led}"/>`;
+  return o;
+}
+export function phone(x, y, s, color = "#334155", screen = "#e0f2fe") {
+  return `<rect x="${x - s * 0.26}" y="${y - s * 0.5}" width="${s * 0.52}" height="${s}" rx="${s * 0.08}" fill="#ffffff" stroke="${color}" stroke-width="2.5"/>` +
+    `<rect x="${x - s * 0.21}" y="${y - s * 0.42}" width="${s * 0.42}" height="${s * 0.78}" rx="${s * 0.03}" fill="${screen}"/>`;
+}
+export function ring(x, y, r, color, { dash = "", w = 3, op = 1 } = {}) {
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${color}" stroke-width="${w}" ${dash ? `stroke-dasharray="${dash}"` : ""} opacity="${op}"/>`;
+}

@@ -23,8 +23,8 @@
   {
     "key": "edr",
     "titre": "EDR",
-    "sousTitre": "La protection intelligente de chaque poste",
-    "couleur": "#C5161D",
+    "sousTitre": "L'antivirus qui surveille les comportements, pas seulement les visages connus",
+    "couleur": "#6D28D9",
     "topics": [
       "cyber_edr"
     ],
@@ -35,14 +35,15 @@
       "p-4.png",
       "p-5.png",
       "p-6.png",
-      "p-7.png"
+      "p-7.png",
+      "p-8.png"
     ]
   },
   {
     "key": "antispam",
     "titre": "Antispam & double authentification",
-    "sousTitre": "Une messagerie propre et des comptes protégés",
-    "couleur": "#C5161D",
+    "sousTitre": "Trier le courrier avant qu'il n'arrive, et verrouiller les comptes",
+    "couleur": "#EA580C",
     "topics": [
       "cyber_antispam",
       "cyber_mfa"
@@ -54,7 +55,8 @@
       "p-4.png",
       "p-5.png",
       "p-6.png",
-      "p-7.png"
+      "p-7.png",
+      "p-8.png"
     ]
   },
   {

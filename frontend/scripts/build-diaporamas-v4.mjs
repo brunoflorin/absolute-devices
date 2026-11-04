@@ -227,13 +227,13 @@ for (const file of files) {
     }
     if (s.t === "levels") {
       const sl = base(s.titre);
-      const cw = 5.8;
+      const nn = s.niveaux.length, gp = nn > 2 ? 0.3 : 0.53, cw = (W - 1.4 - gp * (nn - 1)) / nn;
       for (const [k, nv] of s.niveaux.entries()) {
-        const x = 0.7 + k * (cw + 0.53), y = 1.75, prem = k === 1, st = ++step;
+        const x = 0.7 + k * (cw + gp), y = 1.75, prem = k === nn - 1, st = ++step;
         card(sl, x, y, cw, 4.75, prem ? D : "FFFFFF", prem ? D : "E2E8F0", A(st));
         sl.addImage({ path: await ico(nv.icone, prem ? "#FFFFFF" : th.primary, false), x: x + 0.35, y: y + 0.32, w: 0.85, h: 0.88, ...A(st) });
-        sl.addText(nv.nom, { x: x + 1.4, y: y + 0.3, w: cw - 1.6, h: 0.5, fontSize: 22, color: prem ? "FFFFFF" : D, fontFace: FB, ...A(st) });
-        sl.addText(nv.sous, { x: x + 1.4, y: y + 0.8, w: cw - 1.6, h: 0.4, fontSize: 13, color: prem ? "CBD5E1" : "64748B", fontFace: F, ...A(st) });
+        sl.addText(nv.nom, { x: x + 1.4, y: y + 0.3, w: cw - 1.6, h: 0.5, fontSize: nn > 2 ? 19 : 22, fit: "shrink", color: prem ? "FFFFFF" : D, fontFace: FB, ...A(st) });
+        sl.addText(nv.sous, { x: x + 1.4, y: y + 0.8, w: cw - 1.6, h: 0.5, fontSize: 12, valign: "top", color: prem ? "CBD5E1" : "64748B", fontFace: F, ...A(st) });
         let yy = y + 1.45;
         if (nv.plus) {
           sl.addText(nv.plus, { x: x + 0.4, y: yy, w: cw - 0.8, h: 0.4, fontSize: 13, bold: true, color: C(th.soft), fontFace: F, ...A(st) });
@@ -241,7 +241,7 @@ for (const file of files) {
         }
         for (const it of nv.items) {
           sl.addImage({ path: await ico(prem ? "Plus" : "Check", prem ? "#FFFFFF" : "#16a34a", !prem), x: x + 0.4, y: yy + 0.07, w: 0.28, h: 0.29, ...A(st) });
-          sl.addText(it, { x: x + 0.85, y: yy, w: cw - 1.1, h: 0.42, fontSize: 13.5, color: prem ? "FFFFFF" : "1E293B", valign: "middle", fontFace: F, ...A(st) });
+          sl.addText(it, { x: x + 0.85, y: yy, w: cw - 1.1, h: 0.42, fontSize: nn > 2 ? 12.5 : 13.5, fit: "shrink", color: prem ? "FFFFFF" : "1E293B", valign: "middle", fontFace: F, ...A(st) });
           yy += 0.47;
         }
       }
@@ -264,12 +264,12 @@ for (const file of files) {
     }
     if (s.t === "duel") {
       const sl = base(s.titre);
-      const cols = [[s.sans, "FEF2F2", "B91C1C", "ShieldOff", "#B91C1C", "Sans", "X"], [s.avec, "F0FDF4", "15803D", "ShieldCheck", "#15803D", "Avec", "Check"]];
+      const cols = [[s.sans, "FEF2F2", "B91C1C", "ShieldOff", "#B91C1C", s.labSans || "Sans", "X"], [s.avec, "F0FDF4", "15803D", "ShieldCheck", "#15803D", s.labAvec || "Avec", "Check"]];
       for (const [k, [items, bg, c, big, hex, lab, mark]] of cols.entries()) {
         const x = 0.7 + k * 6.17, w = 5.95, y = 1.75, st = ++step;
         sl.addShape(pptx.ShapeType.roundRect, { x, y, w, h: 4.95, rectRadius: 0.2, fill: { color: bg }, line: { color: bg }, ...A(st) });
         sl.addImage({ path: await ico(big, hex, true), x: x + 0.45, y: y + 0.4, w: 1.0, h: 1.03, ...A(st) });
-        sl.addText(lab, { x: x + 1.7, y: y + 0.55, w: 3, h: 0.7, fontSize: 28, color: c, fontFace: FB, ...A(st) });
+        sl.addText(lab, { x: x + 1.7, y: y + 0.55, w: w - 2, h: 0.7, fontSize: 26, fit: "shrink", color: c, fontFace: FB, ...A(st) });
         for (const [j, t] of items.entries()) {
           const yy = y + 1.9 + j * 0.95;
           sl.addImage({ path: await ico(mark, hex), x: x + 0.45, y: yy + 0.07, w: 0.44, h: 0.45, ...A(st) });
