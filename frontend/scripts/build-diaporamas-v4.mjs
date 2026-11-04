@@ -72,6 +72,29 @@ for (const file of files) {
     sl.addText(txt, { x, y, w, h: 0.38, fontSize: 12, bold: true, color, align: "center", valign: "middle", fontFace: F });
   };
 
+  // Bandeau bas : terme technique expliqué et/ou petite vanne
+  const band = async (sl, s, y = 6.12) => {
+    const parts = [];
+    if (s.tech) parts.push("tech");
+    if (s.vanne) parts.push("vanne");
+    if (!parts.length) return;
+    const gap = 0.25, w = (W - 1.4 - gap * (parts.length - 1)) / parts.length;
+    for (const [k, kind] of parts.entries()) {
+      const x = 0.7 + k * (w + gap);
+      if (kind === "tech") {
+        const [terme, def] = s.tech;
+        sl.addShape(pptx.ShapeType.roundRect, { x, y, w, h: 0.72, rectRadius: 0.15, fill: { color: "F1F5F9" }, line: { color: "E2E8F0", width: 1 } });
+        sl.addImage({ path: await emoji("graduation-cap"), x: x + 0.15, y: y + 0.14, w: 0.44, h: 0.44 });
+        sl.addText([{ text: terme + " : ", options: { bold: true, color: P } }, { text: def, options: { color: "334155" } }],
+          { x: x + 0.7, y, w: w - 0.85, h: 0.72, fontSize: 12.5, valign: "middle", fontFace: F, fit: "shrink" });
+      } else {
+        sl.addShape(pptx.ShapeType.roundRect, { x, y, w, h: 0.72, rectRadius: 0.15, fill: { color: T }, line: { color: T } });
+        sl.addImage({ path: await emoji("winking-face"), x: x + 0.15, y: y + 0.14, w: 0.44, h: 0.44 });
+        sl.addText(s.vanne, { x: x + 0.7, y, w: w - 0.85, h: 0.72, fontSize: 13, italic: true, color: D, valign: "middle", fontFace: F, fit: "shrink" });
+      }
+    }
+  };
+
   for (const s of deck.slides) {
     if (s.t === "cover") {
       const sl = pptx.addSlide();
@@ -91,35 +114,36 @@ for (const file of files) {
       const img = await png(s.img());
       if (s.side === "bottom") {
         sl.addText(s.texte, { x: 0.7, y: 1.6, w: W - 1.4, h: 0.6, fontSize: 18, color: "334155", fontFace: F });
-        const iw = 9.6, ih = iw * s.ratio;
-        sl.addImage({ path: img, x: 0.4, y: 2.3, w: iw, h: ih });
+        const ih = Math.min(9.6 * s.ratio, 3.7), iw = ih / s.ratio;
+        sl.addImage({ path: img, x: 0.4 + (9.6 - iw) / 2, y: 2.3, w: iw, h: ih });
         for (const [k, [e, t]] of s.points.entries()) {
-          const y = 2.6 + k * 1.3;
+          const y = 2.45 + k * 1.15;
           sl.addImage({ path: await emoji(e), x: 10.15, y, w: 0.6, h: 0.6 });
           sl.addText(t, { x: 10.85, y: y - 0.15, w: 2.1, h: 1.0, fontSize: 14, color: "1E293B", valign: "middle", fontFace: F });
         }
       } else {
-        sl.addText(s.texte, { x: 0.7, y: 1.65, w: 5.6, h: 1.1, fontSize: 18, color: "334155", fontFace: F, valign: "top" });
+        sl.addText(s.texte, { x: 0.7, y: 1.6, w: 5.6, h: 1.1, fontSize: 16, color: "334155", fontFace: F, valign: "top" });
         for (const [k, [e, t]] of s.points.entries()) {
-          const y = 3.0 + k * 1.15;
-          sl.addShape(pptx.ShapeType.roundRect, { x: 0.7, y, w: 5.6, h: 0.95, rectRadius: 0.2, fill: { color: "FFFFFF" }, line: { color: "E2E8F0", width: 1 }, shadow: { type: "outer", blur: 6, offset: 2, angle: 90, color: "0F172A", opacity: 0.08 } });
-          sl.addImage({ path: await emoji(e), x: 0.9, y: y + 0.17, w: 0.62, h: 0.62 });
-          sl.addText(t, { x: 1.7, y, w: 4.45, h: 0.95, fontSize: 15, color: "1E293B", valign: "middle", fontFace: F });
+          const y = 2.8 + k * 1.02;
+          sl.addShape(pptx.ShapeType.roundRect, { x: 0.7, y, w: 5.6, h: 0.88, rectRadius: 0.2, fill: { color: "FFFFFF" }, line: { color: "E2E8F0", width: 1 }, shadow: { type: "outer", blur: 6, offset: 2, angle: 90, color: "0F172A", opacity: 0.08 } });
+          sl.addImage({ path: await emoji(e), x: 0.9, y: y + 0.15, w: 0.58, h: 0.58 });
+          sl.addText(t, { x: 1.7, y, w: 4.45, h: 0.88, fontSize: 14, color: "1E293B", valign: "middle", fontFace: F });
         }
-        const iw = 6.4, ih = iw * s.ratio;
-        sl.addImage({ path: img, x: 6.6, y: 1.75 + (5.0 - ih) / 2, w: iw, h: ih });
+        const iw = 6.4, ih = Math.min(iw * s.ratio, 4.2), iw2 = ih / s.ratio;
+        sl.addImage({ path: img, x: 6.6 + (iw - iw2) / 2, y: 1.7 + (4.3 - ih) / 2, w: iw2, h: ih });
       }
+      await band(sl, s);
       continue;
     }
     if (s.t === "explainer") {
       const sl = base(s.titre);
       sl.addText(s.texte, { x: 0.7, y: 1.6, w: W - 1.4, h: 0.75, fontSize: 18, color: "334155", fontFace: F, valign: "top" });
-      const maxH = (s.analogie ? 6.0 : 6.85) - 2.35 - 0.85;
+      const maxH = ((s.analogie || s.tech || s.vanne) ? 6.0 : 6.85) - 2.35 - 0.85;
       const iw = Math.min(11.9, maxH / s.ratio), ih = iw * s.ratio, ix = (W - iw) / 2, iy = 2.35;
       sl.addImage({ path: await png(s.img()), x: ix, y: iy, w: iw, h: ih });
       const ey = iy + ih + 0.05;
       const ew = s.etapes.length === 2 ? 5.4 : 3.6;
-      const exs = s.etapes.length === 2 ? [0.7 + 0.2, 0.7 + 6.3] : null;
+      const exs = s.etapes.length === 2 ? [0.9, 7.0] : [0.8, 0.8 + 4.0, 0.8 + 8.0];
       for (const [k, [fx, t]] of s.etapes.entries()) {
         const cx = exs ? exs[k] + ew / 2 : ix + iw * fx;
         sl.addShape(pptx.ShapeType.ellipse, { x: cx - ew / 2 - 0.05, y: ey + 0.06, w: 0.38, h: 0.38, fill: { color: P } });
@@ -127,10 +151,10 @@ for (const file of files) {
         sl.addText(t, { x: cx - ew / 2 + 0.42, y: ey, w: ew - 0.4, h: 0.75, fontSize: 14, color: "1E293B", valign: "top", fontFace: F });
       }
       if (s.analogie) {
-        sl.addShape(pptx.ShapeType.roundRect, { x: 0.7, y: 6.15, w: W - 1.4, h: 0.65, rectRadius: 0.15, fill: { color: T } });
-        sl.addImage({ path: await emoji("light-bulb"), x: 0.85, y: 6.24, w: 0.45, h: 0.45 });
-        sl.addText(s.analogie, { x: 1.45, y: 6.15, w: W - 2.3, h: 0.65, fontSize: 15, italic: true, color: D, valign: "middle", fontFace: F });
-      }
+        sl.addShape(pptx.ShapeType.roundRect, { x: 0.7, y: 6.12, w: W - 1.4, h: 0.72, rectRadius: 0.15, fill: { color: T } });
+        sl.addImage({ path: await emoji("light-bulb"), x: 0.85, y: 6.26, w: 0.44, h: 0.44 });
+        sl.addText(s.analogie, { x: 1.45, y: 6.12, w: W - 2.3, h: 0.72, fontSize: 14, italic: true, color: D, valign: "middle", fontFace: F });
+      } else await band(sl, s);
       continue;
     }
     if (s.t === "cards") {
@@ -138,12 +162,13 @@ for (const file of files) {
       const cw = 3.75, gap = 0.37;
       for (const [k, [e, t, d]] of s.items.entries()) {
         const x = 0.7 + k * (cw + gap), y = 2.0;
-        sl.addShape(pptx.ShapeType.roundRect, { x, y, w: cw, h: 4.5, rectRadius: 0.25, fill: { color: "FFFFFF" }, line: { color: "E2E8F0", width: 1 }, shadow: { type: "outer", blur: 10, offset: 3, angle: 90, color: "0F172A", opacity: 0.1 } });
-        sl.addShape(pptx.ShapeType.ellipse, { x: x + cw / 2 - 0.95, y: y + 0.4, w: 1.9, h: 1.9, fill: { color: T } });
-        sl.addImage({ path: await emoji(e), x: x + cw / 2 - 0.65, y: y + 0.7, w: 1.3, h: 1.3 });
-        sl.addText(t, { x: x + 0.3, y: y + 2.5, w: cw - 0.6, h: 0.55, fontSize: 20, color: D, align: "center", fontFace: FB });
-        sl.addText(d, { x: x + 0.35, y: y + 3.1, w: cw - 0.7, h: 1.2, fontSize: 14, color: "475569", align: "center", valign: "top", fontFace: F });
+        sl.addShape(pptx.ShapeType.roundRect, { x, y, w: cw, h: 3.95, rectRadius: 0.25, fill: { color: "FFFFFF" }, line: { color: "E2E8F0", width: 1 }, shadow: { type: "outer", blur: 10, offset: 3, angle: 90, color: "0F172A", opacity: 0.1 } });
+        sl.addShape(pptx.ShapeType.ellipse, { x: x + cw / 2 - 0.8, y: y + 0.3, w: 1.6, h: 1.6, fill: { color: T } });
+        sl.addImage({ path: await emoji(e), x: x + cw / 2 - 0.55, y: y + 0.55, w: 1.1, h: 1.1 });
+        sl.addText(t, { x: x + 0.3, y: y + 2.05, w: cw - 0.6, h: 0.55, fontSize: 20, color: D, align: "center", fontFace: FB });
+        sl.addText(d, { x: x + 0.3, y: y + 2.6, w: cw - 0.6, h: 1.25, fontSize: 13, color: "475569", align: "center", valign: "top", fontFace: F });
       }
+      await band(sl, s);
       continue;
     }
     if (s.t === "levels") {
