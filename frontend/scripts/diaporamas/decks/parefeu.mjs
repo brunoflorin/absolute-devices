@@ -64,7 +64,7 @@ export default {
         ["Matériel", "Router", "Un boîtier pare-feu", "Dimensionné selon le débit et le nombre de postes", "pexels-2881232.jpg"],
         ["Abonnement", "KeyRound", "Sa licence de sécurité", "Essentielle ou complète, renouvelée chaque année", "pexels-5380642.jpg"],
         ["Télétravail", "Laptop", "Un accès VPN par personne", "Compte nominatif et double authentification", "pexels-4974915.jpg"],
-        ["Absolute Micro", "Wrench", "Réglage et surveillance", "Règles adaptées, alertes suivies, mises à jour", "pexels-442150.jpg"],
+        ["Absolute Micro", "Wrench", "Réglage et surveillance", "Règles adaptées, alertes suivies, mises à jour", "pexels-17489160.jpg"],
       ],
     },
     {
