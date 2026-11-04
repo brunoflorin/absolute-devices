@@ -62,8 +62,8 @@
   {
     "key": "m365",
     "titre": "Microsoft 365",
-    "sousTitre": "Messagerie et outils de bureau, partout et à jour",
-    "couleur": "#C99A0E",
+    "sousTitre": "Votre bureau dans le Cloud : messagerie, logiciels et fichiers partout",
+    "couleur": "#2563EB",
     "topics": [
       "collab_m365",
       "collab_m365_techno",
@@ -78,14 +78,15 @@
       "p-4.png",
       "p-5.png",
       "p-6.png",
-      "p-7.png"
+      "p-7.png",
+      "p-8.png"
     ]
   },
   {
     "key": "teams",
     "titre": "Teams",
-    "sousTitre": "Discuter, se réunir, travailler ensemble",
-    "couleur": "#C99A0E",
+    "sousTitre": "Discuter, se réunir et travailler ensemble, au bureau comme à distance",
+    "couleur": "#4F46E5",
     "topics": [
       "collab_teams"
     ],
