@@ -35,6 +35,23 @@ async function ico(name, color, solid = false) {
   return cache.get(k);
 }
 
+// Photo recadrée au format voulu (photos libres de droits Pexels, dans scripts/diaporamas/photos)
+const photoCache = new Map();
+function photo(name, ar, dark = 0) {
+  const k = `${name}|${ar}|${dark}`;
+  if (photoCache.has(k)) return photoCache.get(k);
+  const src = path.join(root, "scripts/diaporamas/photos", name), dst = path.join(tmp, `ph${photoCache.size}.jpg`);
+  execFileSync("python3", ["-c", `
+from PIL import Image, ImageEnhance
+im = Image.open(${JSON.stringify(src)}).convert("RGB"); w, h = im.size; ar = ${ar}
+if w / h > ar: nw = int(h * ar); im = im.crop(((w - nw) // 2, 0, (w - nw) // 2 + nw, h))
+else: nh = int(w / ar); im = im.crop((0, (h - nh) // 2, w, (h - nh) // 2 + nh))
+if ${dark} > 0: im = ImageEnhance.Brightness(im).enhance(1 - ${dark})
+im.save(${JSON.stringify(dst)}, quality=88)`]);
+  photoCache.set(k, dst);
+  return dst;
+}
+
 const W = 13.333, H = 7.5, F = "Segoe UI", FB = "Segoe UI Semibold";
 const C = (h) => h.replace("#", "").toUpperCase();
 
@@ -154,13 +171,17 @@ for (const file of files) {
     if (s.t === "cover") {
       const sl = pptx.addSlide();
       sl.background = { color: D };
+      if (s.photo) {
+        sl.addImage({ path: photo(s.photo, W / H, 0.25), x: 0, y: 0, w: W, h: H });
+        sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 7.2, h: H, fill: { color: D, transparency: 12 }, line: { color: D, transparency: 100 } });
+      }
       sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 0.2, h: H, fill: { color: P } });
       sl.addImage({ path: logo, x: 0.8, y: 0.7, w: 0.85, h: 0.85 });
       sl.addText(deck.titre, { x: 0.8, y: 2.2, w: 5.6, h: 2.0, fontSize: 48, color: "FFFFFF", fontFace: FB, valign: "bottom", fit: "shrink" });
       sl.addShape(pptx.ShapeType.rect, { x: 0.8, y: 4.4, w: 1.2, h: 0.08, fill: { color: P } });
       sl.addText(deck.sousTitre, { x: 0.8, y: 4.65, w: 5.4, h: 1.2, fontSize: 21, color: "CBD5E1", fontFace: F, valign: "top" });
       sl.addText("Comprendre l'essentiel, sans jargon inutile", { x: 0.8, y: 6.6, w: 6, h: 0.4, fontSize: 13, color: "94A3B8", fontFace: F });
-      await scene(sl, s.scene(), 6.3, 0.6, 6.7, 6.3, { anim: false });
+      if (!s.photo) await scene(sl, s.scene(), 6.3, 0.6, 6.7, 6.3, { anim: false });
       continue;
     }
     if (s.t === "story") {
@@ -187,12 +208,19 @@ for (const file of files) {
     if (s.t === "cards") {
       const sl = base(s.titre);
       const cw = 3.75, gap = 0.37;
-      for (const [k, [ic, t, d]] of s.items.entries()) {
-        const x = 0.7 + k * (cw + gap), y = 1.85, st = ++step;
-        card(sl, x, y, cw, 4.05, "FFFFFF", "E2E8F0", A(st));
-        sl.addImage({ path: await ico(ic, th.primary), x: x + 0.35, y: y + 0.35, w: 0.95, h: 0.98, ...A(st) });
-        sl.addText(t, { x: x + 0.35, y: y + 1.5, w: cw - 0.7, h: 0.55, fontSize: 20, color: D, fontFace: FB, ...A(st) });
-        sl.addText(d, { x: x + 0.35, y: y + 2.1, w: cw - 0.7, h: 1.7, fontSize: 14, color: "475569", valign: "top", fontFace: F, ...A(st) });
+      for (const [k, [ic, t, d, ph]] of s.items.entries()) {
+        const x = 0.7 + k * (cw + gap), y = 1.75, st = ++step;
+        card(sl, x, y, cw, 4.2, "FFFFFF", "E2E8F0", A(st));
+        if (ph) {
+          sl.addImage({ path: photo(ph, (cw - 0.3) / 1.65), x: x + 0.15, y: y + 0.15, w: cw - 0.3, h: 1.65, ...A(st) });
+          sl.addImage({ path: await ico(ic, th.primary, true), x: x + 0.35, y: y + 1.45, w: 0.68, h: 0.7, ...A(st) });
+          sl.addText(t, { x: x + 0.35, y: y + 2.2, w: cw - 0.7, h: 0.5, fontSize: 19, color: D, fontFace: FB, ...A(st) });
+          sl.addText(d, { x: x + 0.35, y: y + 2.7, w: cw - 0.7, h: 1.35, fontSize: 13.5, color: "475569", valign: "top", fontFace: F, ...A(st) });
+        } else {
+          sl.addImage({ path: await ico(ic, th.primary), x: x + 0.35, y: y + 0.35, w: 0.95, h: 0.98, ...A(st) });
+          sl.addText(t, { x: x + 0.35, y: y + 1.5, w: cw - 0.7, h: 0.55, fontSize: 20, color: D, fontFace: FB, ...A(st) });
+          sl.addText(d, { x: x + 0.35, y: y + 2.1, w: cw - 0.7, h: 1.7, fontSize: 14, color: "475569", valign: "top", fontFace: F, ...A(st) });
+        }
       }
       await band(sl, s);
       continue;
@@ -223,11 +251,12 @@ for (const file of files) {
     if (s.t === "kit") {
       const sl = base(s.titre);
       const cw = 2.85, gap = 0.2;
-      for (const [k, [cat, ic, t, d]] of s.items.entries()) {
+      for (const [k, [cat, ic, t, d, ph]] of s.items.entries()) {
         const x = 0.7 + k * (cw + gap), y = 1.85, last = k === s.items.length - 1, st = ++step;
         card(sl, x, y, cw, 4.6, last ? P : "FFFFFF", last ? P : "E2E8F0", A(st));
-        pill(sl, x + 0.3, y + 0.3, cw - 0.6, cat, last ? "FFFFFF" : T, P, A(st));
-        sl.addImage({ path: await ico(ic, last ? "#FFFFFF" : th.primary), x: x + cw / 2 - 0.6, y: y + 1.0, w: 1.2, h: 1.24, ...A(st) });
+        if (ph) sl.addImage({ path: photo(ph, (cw - 0.3) / 1.55), x: x + 0.15, y: y + 0.15, w: cw - 0.3, h: 1.55, ...A(st) });
+        pill(sl, x + 0.3, y + (ph ? 1.5 : 0.3), cw - 0.6, cat, last ? "FFFFFF" : T, P, A(st));
+        if (!ph) sl.addImage({ path: await ico(ic, last ? "#FFFFFF" : th.primary), x: x + cw / 2 - 0.6, y: y + 1.0, w: 1.2, h: 1.24, ...A(st) });
         sl.addText(t, { x: x + 0.2, y: y + 2.5, w: cw - 0.4, h: 0.85, fontSize: 17, color: last ? "FFFFFF" : D, align: "center", valign: "top", fontFace: FB, ...A(st) });
         sl.addText(d, { x: x + 0.25, y: y + 3.35, w: cw - 0.5, h: 1.1, fontSize: 13, color: last ? "FFE4E6" : "475569", align: "center", valign: "top", fontFace: F, ...A(st) });
       }
@@ -252,6 +281,7 @@ for (const file of files) {
     if (s.t === "closing") {
       const sl = pptx.addSlide();
       sl.background = { color: D };
+      if (s.photo) sl.addImage({ path: photo(s.photo, W / H, 0.72), x: 0, y: 0, w: W, h: H });
       num++; step = 0;
       sl.addText(s.titre, { x: 0.8, y: 0.8, w: W - 1.6, h: 0.9, fontSize: 34, color: "FFFFFF", fontFace: FB });
       const cw = 3.7, gap = 0.36;

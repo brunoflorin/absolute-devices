@@ -7,7 +7,7 @@ export default {
   topics: ["cyber_parefeu"],
   theme: { primary: "#C5161D", dark: "#0B1530", tint: "#FFF1F2", soft: "#FECACA" },
   slides: [
-    { t: "cover", scene: S.cover },
+    { t: "cover", scene: S.cover, photo: "pexels-1148820.jpg" },
     {
       t: "story", titre: "Votre box laisse presque tout passer",
       texte: "La box fait du routage : elle relie votre réseau local à Internet. Son métier, c'est d'acheminer le trafic, pas de l'inspecter.",
@@ -29,9 +29,9 @@ export default {
     {
       t: "cards", titre: "Ce qu'il arrête chaque jour",
       items: [
-        ["ScanSearch", "Les intrusions", "La prévention d'intrusion (IPS) reconnaît les techniques d'attaque connues et coupe la connexion."],
-        ["Ban", "Les sites piégés", "Le filtrage web bloque les domaines malveillants ou frauduleux, même si quelqu'un clique."],
-        ["RadioTower", "Les appels sortants", "Un poste infecté qui tente de joindre le serveur du pirate est bloqué et signalé."],
+        ["ScanSearch", "Les intrusions", "La prévention d'intrusion (IPS) reconnaît les techniques d'attaque connues et coupe la connexion.", "pexels-6963944.jpg"],
+        ["Ban", "Les sites piégés", "Le filtrage web bloque les domaines malveillants ou frauduleux, même si quelqu'un clique.", "pexels-1181244.jpg"],
+        ["RadioTower", "Les appels sortants", "Un poste infecté qui tente de joindre le serveur du pirate est bloqué et signalé.", "pexels-5380589.jpg"],
       ],
       vanne: "Le pirate ne frappe pas à la porte. Il essaie toutes les fenêtres, toutes les nuits, sans jamais se lasser.",
     },
@@ -61,10 +61,10 @@ export default {
     {
       t: "kit", titre: "L'installation minimum",
       items: [
-        ["Matériel", "Router", "Un boîtier pare-feu", "Dimensionné selon le débit et le nombre de postes"],
-        ["Abonnement", "KeyRound", "Sa licence de sécurité", "Essentielle ou complète, renouvelée chaque année"],
-        ["Télétravail", "Laptop", "Un accès VPN par personne", "Compte nominatif et double authentification"],
-        ["Absolute Micro", "Wrench", "Réglage et surveillance", "Règles adaptées, alertes suivies, mises à jour"],
+        ["Matériel", "Router", "Un boîtier pare-feu", "Dimensionné selon le débit et le nombre de postes", "pexels-2881232.jpg"],
+        ["Abonnement", "KeyRound", "Sa licence de sécurité", "Essentielle ou complète, renouvelée chaque année", "pexels-5380642.jpg"],
+        ["Télétravail", "Laptop", "Un accès VPN par personne", "Compte nominatif et double authentification", "pexels-4974915.jpg"],
+        ["Absolute Micro", "Wrench", "Réglage et surveillance", "Règles adaptées, alertes suivies, mises à jour", "pexels-442150.jpg"],
       ],
     },
     {
@@ -73,7 +73,7 @@ export default {
       avec: ["Tout le réseau filtré en un point", "Télétravail par tunnel chiffré", "Journaux et alertes suivis par notre équipe"],
     },
     {
-      t: "closing", titre: "Absolute Micro s'en occupe",
+      t: "closing", photo: "pexels-325229.jpg", titre: "Absolute Micro s'en occupe",
       items: [["Wrench", "Installation et règles sur mesure"], ["RefreshCw", "Mises à jour suivies"], ["BellRing", "Alertes surveillées"]],
     },
   ],
