@@ -103,8 +103,8 @@
   {
     "key": "sharepoint",
     "titre": "SharePoint & OneDrive",
-    "sousTitre": "Vos fichiers rangés, partagés et accessibles partout",
-    "couleur": "#C99A0E",
+    "sousTitre": "Des fichiers rangés, partagés selon les droits et accessibles partout",
+    "couleur": "#0D9488",
     "topics": [
       "collab_sharepoint",
       "collab_onedrive"
@@ -122,8 +122,8 @@
   {
     "key": "sauvegardes",
     "titre": "Sauvegardes locales & Cloud",
-    "sousTitre": "La seule assurance qui rend vos données",
-    "couleur": "#2E8B57",
+    "sousTitre": "La seule assurance qui vous rend vos données",
+    "couleur": "#15803D",
     "topics": [
       "backup_acronis",
       "backup_nas",
@@ -140,7 +140,8 @@
       "p-4.png",
       "p-5.png",
       "p-6.png",
-      "p-7.png"
+      "p-7.png",
+      "p-8.png"
     ]
   }
 ]
