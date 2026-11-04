@@ -12,6 +12,7 @@ import { createRequire } from "node:module";
 import PptxGenJS from "pptxgenjs";
 import { DECKS } from "./diaporamas/contenu.mjs";
 import { carteSvg, fluxSvg, iconSvg } from "./diaporamas/schemas.mjs";
+import { sceneSvg, licenceSvg } from "./diaporamas/illustrations.mjs";
 
 const require = createRequire(import.meta.url);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -62,35 +63,40 @@ for (const deck of DECKS) {
   pptx.company = "Absolute Micro";
   pptx.title = deck.titre;
   const col = C(deck.couleur);
-  const total = 6;
+  const total = deck.licence ? 8 : 6;
+  let num = 0;
+  const scMenace = await png(sceneSvg("menace", deck.couleur, deck.icone));
+  const scProtege = await png(sceneSvg("protege", deck.couleur, deck.icone));
 
-  // 0 — Couverture
+  // 0 — Couverture (illustrée)
   {
     const sl = pptx.addSlide();
-    sl.background = { color: "231F20" };
-    sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: W, h: H * 0.78, fill: { color: col } });
-    sl.addShape(pptx.ShapeType.ellipse, { x: W / 2 - 1.05, y: 0.8, w: 2.1, h: 2.1, fill: { color: "FFFFFF", transparency: 82 } });
-    sl.addImage({ path: await ico(deck.icone, "#ffffff"), x: W / 2 - 0.65, y: 1.2, w: 1.3, h: 1.3 });
-    sl.addText(deck.titre, { x: 0.5, y: 3.15, w: W - 1, h: 1.1, fontSize: 50, bold: true, color: "FFFFFF", align: "center", fontFace: F });
-    sl.addText(deck.sousTitre, { x: 0.5, y: 4.25, w: W - 1, h: 0.7, fontSize: 24, color: "FFFFFF", align: "center", fontFace: F });
-    sl.addImage({ path: logo, x: 0.6, y: 6.05, w: 1.0, h: 1.0 });
-    sl.addText("L'installation minimum, expliquée simplement", { x: 1.8, y: 6.2, w: 9, h: 0.7, fontSize: 18, color: "FFFFFF", fontFace: F });
+    sl.background = { color: "FFFFFF" };
+    sl.addShape(pptx.ShapeType.rect, { x: 0, y: 0, w: 6.2, h: H, fill: { color: col } });
+    sl.addImage({ path: await ico(deck.icone, "#ffffff"), x: 0.7, y: 1.1, w: 1.1, h: 1.1 });
+    sl.addText(deck.titre, { x: 0.6, y: 2.45, w: 5.3, h: 1.9, fontSize: 44, bold: true, color: "FFFFFF", valign: "top", fit: "shrink", fontFace: F });
+    sl.addText(deck.sousTitre, { x: 0.6, y: 4.4, w: 5.3, h: 1.0, fontSize: 22, color: "FFFFFF", valign: "top", fontFace: F });
+    sl.addText("L'installation minimum, expliquée simplement", { x: 0.6, y: 6.55, w: 5.3, h: 0.5, fontSize: 14, color: "FFFFFF", fontFace: F });
+    const iw = 6.7, ih = iw * 470 / 700;
+    sl.addImage({ path: scProtege, x: 6.4, y: (H - ih) / 2 - 0.2, w: iw, h: ih });
+    sl.addImage({ path: logo, x: W - 1.3, y: 6.35, w: 0.9, h: 0.9 });
   }
 
-  // 1 — Le problème
+  // 1 — Le problème (illustré)
   {
     const sl = pptx.addSlide();
     entete(pptx, sl, deck, deck.probleme.titre);
-    sl.addText(deck.probleme.texte, { x: 0.6, y: 1.35, w: W - 1.2, h: 0.9, fontSize: 20, color: "334155", fontFace: F });
-    const cw = 3.85, gap = 0.3;
+    sl.addText(deck.probleme.texte, { x: 0.6, y: 1.35, w: 6.3, h: 1.2, fontSize: 19, color: "334155", valign: "top", fontFace: F });
     for (const [k, [ic, txt]] of deck.probleme.risques.entries()) {
-      const x = 0.6 + k * (cw + gap);
-      sl.addShape(pptx.ShapeType.roundRect, { x, y: 2.65, w: cw, h: 3.9, rectRadius: 0.15, fill: { color: "F8FAFC" }, line: { color: "E2E8F0", width: 1 } });
-      sl.addShape(pptx.ShapeType.ellipse, { x: x + cw / 2 - 0.75, y: 3.0, w: 1.5, h: 1.5, fill: { color: col, transparency: 86 } });
-      sl.addImage({ path: await ico(ic, deck.couleur), x: x + cw / 2 - 0.45, y: 3.3, w: 0.9, h: 0.9 });
-      sl.addText(txt, { x: x + 0.25, y: 4.75, w: cw - 0.5, h: 1.5, fontSize: 18, color: "1E293B", align: "center", valign: "top", fontFace: F });
+      const y = 2.75 + k * 1.3;
+      sl.addShape(pptx.ShapeType.ellipse, { x: 0.6, y, w: 0.95, h: 0.95, fill: { color: "FEE2E2" } });
+      sl.addImage({ path: await ico(ic, "#dc2626"), x: 0.8, y: y + 0.2, w: 0.55, h: 0.55 });
+      sl.addText(txt, { x: 1.75, y, w: 5.1, h: 0.95, fontSize: 18, color: "1E293B", valign: "middle", fontFace: F });
     }
-    pied(sl, deck, 1, total);
+    const iw = 6.0, ih = iw * 470 / 700;
+    sl.addImage({ path: scMenace, x: 7.0, y: 1.6, w: iw, h: ih });
+    sl.addText("Sans protection adaptée", { x: 7.0, y: 1.6 + ih + 0.05, w: iw, h: 0.4, fontSize: 15, bold: true, color: "DC2626", align: "center", fontFace: F });
+    pied(sl, deck, ++num, total);
   }
 
   // 2 — Où il se place (schéma général)
@@ -102,7 +108,7 @@ for (const deck of DECKS) {
     sl.addImage({ path: img, x: (W - iw) / 2, y: 1.2, w: iw, h: ih });
     sl.addShape(pptx.ShapeType.roundRect, { x: 0.6, y: 6.4, w: W - 1.2, h: 0.55, rectRadius: 0.1, fill: { color: col, transparency: 88 } });
     sl.addText(deck.carte.legende, { x: 0.8, y: 6.4, w: W - 1.6, h: 0.55, fontSize: 17, bold: true, color: col, valign: "middle", fontFace: F });
-    pied(sl, deck, 2, total);
+    pied(sl, deck, ++num, total);
   }
 
   // 3 — Comment ça marche
@@ -113,7 +119,7 @@ for (const deck of DECKS) {
     sl.addImage({ path: img, x: 0.6, y: 1.6, w: W - 1.2, h: (W - 1.2) * 330 / 1200 });
     sl.addShape(pptx.ShapeType.rect, { x: 0.6, y: 5.45, w: 0.09, h: 1.0, fill: { color: col } });
     sl.addText(deck.flux.texte, { x: 0.75, y: 5.45, w: W - 1.4, h: 1.0, fontSize: 19, italic: true, color: "334155", fill: { color: "F1F5F9" }, valign: "middle", margin: 12, fontFace: F });
-    pied(sl, deck, 3, total);
+    pied(sl, deck, ++num, total);
   }
 
   // 4 — L'installation minimum
@@ -134,7 +140,45 @@ for (const deck of DECKS) {
         { text: detail, options: { fontSize: 15, color: "475569" } },
       ], { x: 4.15, y, w: W - 5, h: rh, valign: "middle", fontFace: F });
     }
-    pied(sl, deck, 4, total);
+    pied(sl, deck, ++num, total);
+  }
+
+  // Licence (pare-feu)
+  if (deck.licence) {
+    const lic = deck.licence;
+    {
+      const sl = pptx.addSlide();
+      entete(pptx, sl, deck, lic.titre);
+      sl.addText(lic.texte, { x: 0.6, y: 1.3, w: W - 1.2, h: 0.9, fontSize: 19, color: "334155", fontFace: F });
+      const iw = 11.0, ih = iw * 420 / 1200;
+      sl.addImage({ path: await png(licenceSvg(deck.couleur)), x: (W - iw) / 2, y: 2.2, w: iw, h: ih });
+      sl.addShape(pptx.ShapeType.rect, { x: 0.6, y: 6.15, w: 0.09, h: 0.75, fill: { color: col } });
+      sl.addText("💡 " + lic.analogie, { x: 0.75, y: 6.15, w: W - 1.4, h: 0.75, fontSize: 17, italic: true, color: "334155", fill: { color: "F1F5F9" }, valign: "middle", margin: 10, fontFace: F });
+      pied(sl, deck, ++num, total);
+    }
+    {
+      const sl = pptx.addSlide();
+      entete(pptx, sl, deck, "Deux niveaux de licence");
+      const nv = lic.niveaux;
+      const x0 = 0.6, c1 = 7.0, cw = 2.75, y0 = 1.35;
+      const heads = [[nv.essentielle, "64748B", c1], [nv.complete, col, c1 + cw + 0.1]];
+      for (const [[t, st], c, x] of heads) {
+        sl.addShape(pptx.ShapeType.roundRect, { x, y: y0, w: cw, h: 0.95, rectRadius: 0.1, fill: { color: c } });
+        sl.addText([{ text: t, options: { bold: true, fontSize: 17, breakLine: true } }, { text: st, options: { fontSize: 11 } }],
+          { x, y: y0, w: cw, h: 0.95, color: "FFFFFF", align: "center", valign: "middle", fontFace: F });
+      }
+      const rh = 0.36;
+      for (const [k, [lab, e, t]] of nv.lignes.entries()) {
+        const y = y0 + 1.05 + k * rh;
+        if (k % 2 === 0) sl.addShape(pptx.ShapeType.rect, { x: x0, y, w: W - 1.2, h: rh, fill: { color: "F8FAFC" } });
+        sl.addText(lab, { x: x0 + 0.15, y, w: 6.2, h: rh, fontSize: 15, color: "1E293B", valign: "middle", bold: !e, fontFace: F });
+        for (const [ok, x] of [[e, c1], [t, c1 + cw + 0.1]]) {
+          sl.addImage({ path: await ico(ok ? "CircleCheck" : "Minus", ok ? "#15803d" : "#cbd5e1"), x: x + cw / 2 - 0.15, y: y + 0.05, w: 0.3, h: 0.3 });
+        }
+      }
+      sl.addText(nv.note, { x: x0, y: 6.42, w: W - 1.2, h: 0.55, fontSize: 13, italic: true, color: "475569", valign: "middle", fontFace: F });
+      pied(sl, deck, ++num, total);
+    }
   }
 
   // 5 — Sans / Avec
@@ -145,14 +189,15 @@ for (const deck of DECKS) {
     for (const [k, [titre, items, c, bg, ic, hex]] of cols.entries()) {
       const x = 0.6 + k * 6.17, w = 5.95;
       sl.addShape(pptx.ShapeType.roundRect, { x, y: 1.45, w, h: 5.2, rectRadius: 0.15, fill: { color: bg }, line: { color: c, width: 1.5 } });
-      sl.addText(titre, { x: x + 0.35, y: 1.65, w: w - 0.7, h: 0.6, fontSize: 26, bold: true, color: c, fontFace: F });
+      sl.addText(titre, { x: x + 0.35, y: 1.65, w: 2.2, h: 0.6, fontSize: 26, bold: true, color: c, fontFace: F });
+      sl.addImage({ path: k === 0 ? scMenace : scProtege, x: x + w - 2.6, y: 1.55, w: 2.4, h: 2.4 * 470 / 700 });
       for (const [j, t] of items.entries()) {
-        const y = 2.55 + j * 1.3;
+        const y = 3.25 + j * 1.1;
         sl.addImage({ path: await ico(ic, hex), x: x + 0.4, y: y + 0.08, w: 0.5, h: 0.5 });
         sl.addText(t, { x: x + 1.1, y, w: w - 1.4, h: 0.95, fontSize: 19, color: "1E293B", valign: "top", fontFace: F });
       }
     }
-    pied(sl, deck, 5, total);
+    pied(sl, deck, ++num, total);
   }
 
   // 6 — Ce qu'Absolute Micro fait pour vous
@@ -168,7 +213,7 @@ for (const deck of DECKS) {
       sl.addText(d, { x: x + 0.3, y: 4.2, w: cw - 0.6, h: 1.2, fontSize: 17, color: "FFFFFF", align: "center", valign: "top", fontFace: F });
     }
     sl.addText("Un seul interlocuteur : 01 34 87 74 43 — contact@absolutemicro.fr", { x: 0.6, y: 6.1, w: W - 1.2, h: 0.5, fontSize: 18, bold: true, color: "231F20", align: "center", fontFace: F });
-    pied(sl, deck, 6, total);
+    pied(sl, deck, ++num, total);
   }
 
   const pptxFile = path.join(out, `${deck.key}.pptx`);
