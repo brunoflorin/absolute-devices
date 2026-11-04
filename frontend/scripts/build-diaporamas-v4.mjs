@@ -14,7 +14,8 @@ const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
 const JSZip = require("jszip");
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const out = path.join(root, "public/diaporamas");
+const PREVIEW = process.env.PREVIEW_DIR || "";
+const out = PREVIEW || path.join(root, "public/diaporamas");
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "diapo5-"));
 const logo = path.join(root, "src/assets/logo.jpg");
 fs.mkdirSync(out, { recursive: true });
@@ -315,5 +316,5 @@ for (const file of files) {
 }
 
 await browser.close();
-fs.writeFileSync(manifestPath, JSON.stringify(manifeste, null, 2) + "\n");
+if (!PREVIEW) fs.writeFileSync(manifestPath, JSON.stringify(manifeste, null, 2) + "\n");
 fs.rmSync(tmp, { recursive: true, force: true });
