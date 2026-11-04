@@ -1,0 +1,140 @@
+[
+  {
+    "key": "parefeu_vpn",
+    "titre": "Pare-feu & VPN",
+    "sousTitre": "Le gardien de l'entrée de votre réseau",
+    "couleur": "#C5161D",
+    "topics": [
+      "cyber_parefeu"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "edr",
+    "titre": "EDR",
+    "sousTitre": "La protection intelligente de chaque poste",
+    "couleur": "#C5161D",
+    "topics": [
+      "cyber_edr"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "antispam",
+    "titre": "Antispam & double authentification",
+    "sousTitre": "Une messagerie propre et des comptes protégés",
+    "couleur": "#C5161D",
+    "topics": [
+      "cyber_antispam",
+      "cyber_mfa"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "m365",
+    "titre": "Microsoft 365",
+    "sousTitre": "Messagerie et outils de bureau, partout et à jour",
+    "couleur": "#C99A0E",
+    "topics": [
+      "collab_m365",
+      "collab_m365_techno",
+      "collab_office_suite",
+      "collab_outlook",
+      "collab_popimapex"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "teams",
+    "titre": "Teams",
+    "sousTitre": "Discuter, se réunir, travailler ensemble",
+    "couleur": "#C99A0E",
+    "topics": [
+      "collab_teams"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "sharepoint",
+    "titre": "SharePoint & OneDrive",
+    "sousTitre": "Vos fichiers rangés, partagés et accessibles partout",
+    "couleur": "#C99A0E",
+    "topics": [
+      "collab_sharepoint",
+      "collab_onedrive"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  },
+  {
+    "key": "sauvegardes",
+    "titre": "Sauvegardes locales & Cloud",
+    "sousTitre": "La seule assurance qui rend vos données",
+    "couleur": "#2E8B57",
+    "topics": [
+      "backup_acronis",
+      "backup_nas",
+      "backup_hybride",
+      "backup_integrite",
+      "backup_tests",
+      "backup_crashdisk",
+      "backup_pca_pra_pci"
+    ],
+    "pages": [
+      "p-1.png",
+      "p-2.png",
+      "p-3.png",
+      "p-4.png",
+      "p-5.png",
+      "p-6.png",
+      "p-7.png"
+    ]
+  }
+]
