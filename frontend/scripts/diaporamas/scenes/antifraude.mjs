@@ -57,9 +57,9 @@ export function controle() {
     let b = panel(1100, 80, 460, 360, { r: 18, stroke: "#bbf7d0", fill: "#f0fdf4" });
     b += doc(1190, 200, 110, "", { accent: OK });
     b += icon("BadgeCheck", 1225, 240, 44, OK, 2.2);
-    b += label(1270, 175, "Certificat", { size: 19, color: OK, anchor: "start", weight: 800 });
-    b += label(1270, 202, "délivré par un", { size: 14, color: INK, anchor: "start", weight: 500 });
-    b += label(1270, 224, "organisme accrédité", { size: 14, color: INK, anchor: "start", weight: 500 });
+    b += label(1270, 175, "Justificatif", { size: 19, color: OK, anchor: "start", weight: 800 });
+    b += label(1270, 202, "attestation de l'éditeur", { size: 14, color: INK, anchor: "start", weight: 500 });
+    b += label(1270, 224, "ou certificat accrédité", { size: 14, color: INK, anchor: "start", weight: 500 });
     b += label(1130, 330, "À présenter en cas de contrôle.", { size: 15, color: DARK, anchor: "start", weight: 700 });
     b += label(1130, 360, "Sans justificatif : amende de 7 500 €", { size: 15, color: RED, anchor: "start", weight: 800 });
     b += label(1130, 388, "par logiciel concerné", { size: 14, color: INK, anchor: "start", weight: 500 });

@@ -27,13 +27,13 @@ export default {
       t: "explainer", titre: "Ce qui se passe lors d'un contrôle",
       texte: "Chaque enregistrement est chaîné au précédent par une empreinte numérique. Toute suppression laisse une trace, et le justificatif de conformité doit pouvoir être présenté.",
       scene: S.controle,
-      tech: ["Certification", "Depuis la loi de finances 2025, l'attestation fournie par l'éditeur ne suffit plus : un certificat d'organisme accrédité est exigé."],
+      tech: ["Justificatif", "Depuis le 21 février 2026 (loi de finances 2026), l'attestation individuelle de l'éditeur est de nouveau acceptée, au même titre qu'un certificat d'organisme accrédité."],
     },
     {
       t: "cards", titre: "Les bons réflexes",
       items: [
-        ["BadgeCheck", "Demander le certificat", "Exigez le certificat de conformité de votre logiciel et rangez-le précieusement.", "pexels-6801648.jpg"],
-        ["RefreshCw", "Rester à jour", "Le certificat porte sur une version : une version obsolète peut ne plus être couverte.", "pexels-5380642.jpg"],
+        ["BadgeCheck", "Demander le justificatif", "Exigez l'attestation de l'éditeur ou le certificat de votre logiciel, et rangez-le précieusement.", "pexels-6801648.jpg"],
+        ["RefreshCw", "Rester à jour", "Le justificatif porte sur une version : une version obsolète peut ne plus être couverte.", "pexels-5380642.jpg"],
         ["DatabaseBackup", "Archiver", "Les données et archives doivent rester disponibles pendant toute la durée légale.", "pexels-1054397.jpg"],
       ],
       vanne: "En cas de contrôle, « mon neveu m'a installé une caisse gratuite trouvée sur Internet » n'est pas un justificatif accepté.",
@@ -42,7 +42,7 @@ export default {
       t: "kit", titre: "Être en règle : le minimum",
       items: [
         ["Logiciel", "MonitorCheck", "Une caisse certifiée", "Ou un logiciel de gestion certifié", "pexels-7621136.jpg"],
-        ["Justificatif", "BadgeCheck", "Le certificat", "Correspondant à la version utilisée", "pexels-7319070.jpg"],
+        ["Justificatif", "BadgeCheck", "Attestation ou certificat", "Correspondant à la version utilisée", "pexels-7319070.jpg"],
         ["Données", "DatabaseBackup", "Une sauvegarde", "Des données et des archives fiscales", "pexels-2881227.jpg"],
         ["Absolute Micro", "Wrench", "Accompagnement", "Vérification, installation, sauvegarde", "pexels-8867482.jpg"],
       ],
@@ -50,7 +50,7 @@ export default {
     {
       t: "duel", titre: "Logiciel non conforme… ou certifié", labSans: "Non conforme", labAvec: "Certifié",
       sans: ["Amende de 7 500 € par logiciel concerné", "Ventes modifiables sans trace", "Risque de redressement lors d'un contrôle"],
-      avec: ["Certificat présenté en cas de contrôle", "Encaissements inaltérables et archivés", "L'esprit tranquille face à l'administration"],
+      avec: ["Justificatif présenté en cas de contrôle", "Encaissements inaltérables et archivés", "L'esprit tranquille face à l'administration"],
     },
     {
       t: "closing", photo: "pexels-325229.jpg", titre: "Absolute Micro s'en occupe",
